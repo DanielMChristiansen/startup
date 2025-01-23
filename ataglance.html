@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Schedulify</title>
 </head>
 <body>
     <header>
@@ -18,15 +18,15 @@
         <hr>
     </header>
     <main>
-        <table>
-            <tr>
+        <table id="classesTable">
+            <thead>
                 <td>Classes:</td>
                 <td>MATH 113<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon"></sup></td>
                 <td>CS 260</td>
                 <td>CS 235</td>
                 <td>SWELL 120<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon"></sup></td>
                 <td>CS 202</td>
-            </tr>
+            </thead>
             <tr>
                 <td>Next Assignment:</td>
                 <td>
@@ -52,10 +52,10 @@
             </tr>
         </table>
         <br>
-        <span>Assignments:</span> <button>+ ADD</button>
+        <span>Assignments:</span> <button id="addAssignmentButton">+ ADD</button>
         <br>
         <br>
-         <table>
+        <table id="assignmentsTable">
             <thead>
                 <td>
                     <strong>Date</strong>
@@ -106,7 +106,13 @@
                 <td>Module 2 Quiz</td>
                 <td><input type="checkbox"></td>
             </tr>
-         </table>
+        </table>
+        <div id="dueDatePopup">
+            <h4>Assignment Due Soon:</h4>
+            <span>Class:</span> <span>MATH 113</span><br>
+            <span>Assignment:</span> <span>Online 6.1</span><br>
+            <span>Due In:</span> <span>3 hrs, 25 min, 50 seconds</span><br>
+        </div>
     </main>
     <footer>
         <hr>

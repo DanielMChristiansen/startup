@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Schedulify</title>
 </head>
 <body>
     <header>
@@ -18,7 +18,7 @@
         <hr>
     </header>
     <main>
-        <table>
+        <table id="calendarAddTable">
             <thead>
                 <td><strong>Class</strong></td>
                 <td><strong>Calendar Link</strong></td>
@@ -34,8 +34,8 @@
                 <td><button>🗑️</button></td>
             </tr>
         </table>
-        <input type="url" placeholder="Calendar Link Here"><button>Add New Calendar</button>
-        <label for="isLearningSuiteCheckbox">LearningSuite Class?</label><input type="checkbox" name="isLearningSuiteCheckbox" id="">
+        <input type="url" placeholder="Calendar Link Here" id="calendarUrlInput"><button id="addCalendarButton">Add New Calendar</button><br>
+        <label for="isLearningSuiteCheckbox">LearningSuite Class?</label><input type="checkbox" name="isLearningSuiteCheckbox" id="isLearningSuiteCheckbox">
     </main>
     <footer>
         <hr>
