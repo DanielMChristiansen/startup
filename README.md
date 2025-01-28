@@ -55,7 +55,7 @@ sequenceDiagram
 
 I am going to use the required technologies in the following ways.
 
-- **HTML** - Three different views: Login/register, setup/edit class & assignment data, at-a-glance view
+- **HTML** - Four different views: Login/register, setup/edit class & assignment data, at-a-glance view, and tutorial of how to get calendar links
 - **CSS** - Color coded classes, button animation, responsive design
 - **React** - Single page application with routing between views and reactive user controls
 - **Service** - Endpoints for authentication, updating assignment and calendar data, third-party call to Canvas and LearningSuite for assignment list
@@ -72,15 +72,15 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **HTML pages** - I did not complete this part of the deliverable.
-- [ ] **Proper HTML element usage** - I did not complete this part of the deliverable.
-- [ ] **Links** - I did not complete this part of the deliverable.
-- [ ] **Text** - I did not complete this part of the deliverable.
-- [ ] **3rd party API placeholder** - I did not complete this part of the deliverable.
-- [ ] **Images** - I did not complete this part of the deliverable.
-- [ ] **Login placeholder** - I did not complete this part of the deliverable.
-- [ ] **DB data placeholder** - I did not complete this part of the deliverable.
-- [ ] **WebSocket placeholder** - I did not complete this part of the deliverable.
+- [x] **HTML pages** - I created 4 seperate pages for the website for the 4 main functionalities.
+- [x] **Proper HTML element usage** - I did complete this part of the deliverable.
+- [x] **Links** - I used links to join together the different pages of the website.
+- [x] **Text** - There is text.
+- [x] **3rd party API placeholder** - I have a placeholder table for the information to be fetched from Canvas and LearningSuite.
+- [x] **Images** - The tutorial page includes several images to walk the user through the process
+- [x] **Login placeholder** - The website starts on the login placeholder page.
+- [x] **DB data placeholder** - I have several tables with placeholder data to be fetched from a DB.
+- [x] **WebSocket placeholder** - I added a placeholder popup that will be triggered by a websocket message.
 
 ## 🚀 CSS deliverable
 
