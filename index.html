@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schedulify</title>
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
     <header>
@@ -19,10 +20,17 @@
         <hr>
     </header>
     <main>
-        <input id="emailInput" type="email" placeholder="📧 Email:"><br>
-        <input id="passwordInput" type="password" placeholder="🔒 Password"><br>
-        <button id="loginButton">Login</button>
-        <button id="registerButton">Register</button>
+        
+        <div class="loginCode">
+            <div class="shrinker">
+                <input id="emailInput" type="email" placeholder="📧 Email:" class="loginField"><br>
+                <input id="passwordInput" type="password" placeholder="🔒 Password" class="loginField"><br>
+                <div class="loginButtons">
+                    <button id="loginButton">Login</button>
+                    <button id="registerButton">Register</button>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
         <hr>

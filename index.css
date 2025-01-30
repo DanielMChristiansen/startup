@@ -1,0 +1,52 @@
+body {
+    height: 100vh;
+}
+
+.loginField {
+    box-sizing: border-box;
+    width: 100%;
+    display: block;
+    font-size: 2em;
+    color: #B7B7B7;
+    border: 2px solid #000000;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 15px;
+}
+
+.shrinker {
+    width: 50vw;
+}
+
+.loginCode {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginButtons {
+    width: 100%;
+}
+
+.loginButtons button {
+    font-size: 4vw;
+    width: 48%;
+    border-radius: 15px;
+}
+
+.loginButtons button:nth-child(1) {
+    margin-right: 1%;
+    background-color: #93C47D;
+}
+.loginButtons button:nth-child(1):active {
+    margin-right: 1%;
+    background-color: #638554;
+}
+
+.loginButtons button:nth-child(2) {
+    margin-left: 1%;
+    background-color: #6D9EEB;
+}
