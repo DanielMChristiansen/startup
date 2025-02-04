@@ -1,31 +1,26 @@
 body {
-    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
 }
 
 .loginField {
     box-sizing: border-box;
     width: 100%;
     display: block;
-    font-size: 2em;
+    font-size: 4vw;
     color: #B7B7B7;
     border: 2px solid #000000;
-    padding-top: 0.5em;
-    padding-bottom: 0.5em;
+    padding: 0.5em;
     margin-top: 0.5em;
     margin-bottom: 0.5em;
     border-radius: 15px;
 }
 
 .shrinker {
-    width: 50vw;
+    width: 50%;
 }
 
-.loginCode {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
 
 .loginButtons {
     width: 100%;
@@ -33,20 +28,80 @@ body {
 
 .loginButtons button {
     font-size: 4vw;
-    width: 48%;
+    width: 49%;
     border-radius: 15px;
 }
 
 .loginButtons button:nth-child(1) {
-    margin-right: 1%;
     background-color: #93C47D;
+    float: left;
 }
 .loginButtons button:nth-child(1):active {
-    margin-right: 1%;
-    background-color: #638554;
+    background-color: #83b16f;
+    float: left;
+    
 }
 
 .loginButtons button:nth-child(2) {
-    margin-left: 1%;
     background-color: #6D9EEB;
+    float: right;
+}
+
+header {
+    background-color: rgb(30, 29, 29);
+    flex: 0 60px;
+    width: calc(100vw - 2em);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+footer {
+    flex: 0 30px;
+    padding-left: 1em;
+    padding-right: 1em;
+}
+
+footer > a {
+    float: right;
+}
+
+footer > p {
+    display: inline;
+}
+
+
+main {
+    flex: 1 calc(100vh - 110px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+menu {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    padding-inline-start: 40px;
+}
+menu li {
+    list-style: none;
+    padding: 0 0.3em;
+}
+nav > a {
+    font-size: 5vw;
+    color: white;
+}
+menu > li > a {
+    font-size: 3vw;
+    color: whitesmoke;
 }
