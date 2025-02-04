@@ -4,51 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schedulify</title>
+    <link rel="stylesheet" href="headerandfooter.css">
+    <link rel="stylesheet" href="ataglance.css">
 </head>
 <body>
     <header>
-        <h1>Schedulify</h1>
+        
         <nav>
+            <a href="#">Schedulify</a>
             <menu>
-                <li><a href="index.html">Login</a></li>
+                <li><a href="index.html" class="currPage">Login</a></li>
                 <li><a href="ataglance.html">At a Glance</a></li>
                 <li><a href="setup.html">Setup</a></li>
                 <li><a href="tutorial.html">Tutorial</a></li>
             </menu>
         </nav>
-        <hr>
     </header>
     <main>
         <table id="classesTable">
             <thead>
                 <td>Classes:</td>
-                <td>MATH 113<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon"></sup></td>
-                <td>CS 260</td>
-                <td>CS 235</td>
-                <td>SWELL 120<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon"></sup></td>
-                <td>CS 202</td>
+                <td class="class1Color">MATH 113<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon"></sup></td>
+                <td class="class2Color">CS 260</td>
+                <td class="class3Color">CS 235</td>
+                <td class="class4Color">SWELL 120<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon"></sup></td>
+                <td class="class5Color">CS 202</td>
             </thead>
             <tr>
                 <td>Next Assignment:</td>
                 <td>
-                    <div class="closeDueDate">Due 1/15</div>
-                    Online: 6.1
+                    <div class="dueDate closeDueDate">Due 1/15</div><br>
+                    <p>Online: 6.1</p>
                 </td>
                 <td>
-                    <div class="medDueDate">Due 1/21</div>
-                    Startup AWS
+                    <div class="dueDate medDueDate">Due 1/21</div><br>
+                    <p>Startup AWS</p>
                 </td>
                 <td>
-                    <div class="pastDueDate">Due 1/13</div>
-                    Homework 1b
+                    <div class="dueDate pastDueDate">Due 1/13</div><br>
+                    <p>Homework 1b</p>
                 </td>
                 <td>
-                    <div class="farDueDate">Due 2/26</div>
-                    Final Exam
+                    <div class="dueDate farDueDate">Due 2/26</div><br>
+                    <p>Final Exam</p>
                 </td>
                 <td>
-                    <div class="medDueDate">Due 1/17</div>
-                    Module 2 Quiz
+                    <div class="dueDate medDueDate">Due 1/17</div><br>
+                    <p>Module 2 Quiz</p>
                 </td>
             </tr>
         </table>
@@ -73,37 +75,37 @@
             </thead>
             <tr>
                 <td>1/9</td>
-                <td>CS 235</td>
+                <td class="class3Color">CS 235</td>
                 <td>Start of Semester Survey</td>
                 <td><input type="checkbox" checked></td>
             </tr>
             <tr>
                 <td>1/10</td>
-                <td>MATH 113</td>
+                <td class="class1Color">MATH 113</td>
                 <td>Online 5.3</td>
                 <td><input type="checkbox"checked></td>
             </tr>
             <tr>
                 <td>1/13</td>
-                <td>CS 235</td>
+                <td class="class3Color">CS 235</td>
                 <td>Homework 0</td>
                 <td><input type="checkbox" checked></td>
             </tr>
             <tr>
                 <td>1/14</td>
-                <td>CS 260</td>
+                <td class="class2Color">CS 260</td>
                 <td>Startup Spec</td>
                 <td><input type="checkbox" checked></td>
             </tr>
             <tr>
                 <td>1/15</td>
-                <td>MATH 113</td>
+                <td class="class1Color">MATH 113</td>
                 <td>Online 6.1</td>
                 <td><input type="checkbox" checked></td>
             </tr>
             <tr>
                 <td>1/17</td>
-                <td>CS 202</td>
+                <td class="class5Color">CS 202</td>
                 <td>Module 2 Quiz</td>
                 <td><input type="checkbox"></td>
             </tr>
@@ -117,8 +119,7 @@
     </main>
     <footer>
         <hr>
-        <p>Daniel Christiansen</p>
-        <a href="https://github.com/DanielMChristiansen/startup">GitHub</a>
+        <p>Daniel Christiansen</p><a href="https://github.com/DanielMChristiansen/startup">GitHub</a>
     </footer>
 </body>
 </html>
