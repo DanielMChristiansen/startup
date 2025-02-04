@@ -1,5 +1,18 @@
-#dueDatePopup {
-    display: none;
+/* Class Colors */
+.closeDueDate {
+    background-color: #ffe599;
+}
+
+.medDueDate {
+    background-color: #b6d7a8;
+}
+
+.pastDueDate {
+    background-color: #ea9999;
+}
+
+.farDueDate {
+    background-color: white;
 }
 
 .class1Color {
@@ -19,12 +32,38 @@
 }
 
 .class5Color {
+    /* TODO: change color or text color to increase contrast in improve accessiblity */
     background-color: #666666;
 }
 
+/* Popup Styling */
+#dueDatePopup {
+    padding: 5px;
+    padding-top: 0px;
+    border: 2px solid;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    /* Don't show it yet */
+    display: none;
+}
+
+/* Table Styling */
 table {
     border-collapse: collapse;
-    width: 96vw
+    width: 96vw;
+    table-layout: auto;
+}
+
+td {
+    text-align: center;
+    /* Set default so it comes back after being in portrait mode */
+    display: table-cell;
+}
+
+/* Funny fix to make columns shrink to content */
+#assignmentsTable td:nth-child(n+1):nth-child(-n+2), #assignmentsTable td:last-child { /* Select first two and last table data tag */
+    width: 0.1%;
+    white-space: nowrap;
 }
 
 #classesTable td {
@@ -35,6 +74,11 @@ table {
 
 #assignmentsTable td {
     border: #9e9e9e 2px solid;
+    padding: 1vw;
+}
+
+#assignmentsTable thead td {
+    text-decoration: underline;
 }
 
 .dueDate {
@@ -44,6 +88,51 @@ table {
     padding: 5px;
 }
 
-.closeDueDate {
-    background-color: #ffe599;
+/* Move content to top of main page */
+main {
+    justify-content: start;
+    overflow-x: auto;
+}
+
+/* Declare font sizes */
+.biggerText {
+    font-size: 20px;
+}
+
+.smallText {
+    font-size: 10px
+}
+
+.normalText {
+    font-size: 16px;
+}
+
+#addAssignmentButton {
+    background-color: #b4a7d6;
+    border: black 2px solid;
+    border-radius: 5px;
+    padding: 5px;
+    float: right;
+}
+
+.sameLine {
+    width: 96vw;
+}
+
+
+@media screen and (orientation: portrait) {
+    .biggerText {
+        font-size: 18px; /* Adjust the size as needed */
+    }
+
+    .smallText {
+        font-size: 6px; /* Adjust the size as needed */
+    }
+
+    .normalText {
+        font-size: 14px; /* Adjust the size as needed */
+    }
+    #classesTable td:first-child {
+        display: none
+    }
 }
