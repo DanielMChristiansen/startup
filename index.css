@@ -49,12 +49,12 @@ body {
 
 header {
     background-color: rgb(30, 29, 29);
-    flex: 0 60px;
-    width: calc(100vw - 2em);
+    flex: 0 10vh;
+    width: 94vw;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-left: 2vw;
+    padding-right: 2vw;
 }
 
 footer {
@@ -102,6 +102,10 @@ nav > a {
     color: white;
 }
 menu > li > a {
+    font-size: 3vw;
+    color: rgb(115, 115, 115);
+}
+menu > li > a:hover, a.currPage {
     font-size: 3vw;
     color: whitesmoke;
 }
