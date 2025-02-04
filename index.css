@@ -47,20 +47,28 @@ body {
     float: right;
 }
 
+.loginButtons button:nth-child(2):active {
+    background-color: #44659b;
+    float: right;
+}
+
 header {
     background-color: rgb(30, 29, 29);
     flex: 0 10vh;
-    width: 94vw;
+    width: 96vw;
     margin-left: auto;
     margin-right: auto;
     padding-left: 2vw;
     padding-right: 2vw;
+    display: flex;
+    justify-content: center;
 }
 
 footer {
-    flex: 0 30px;
+    flex: 0 3vh;
     padding-left: 1em;
     padding-right: 1em;
+    font-size: 2vh;
 }
 
 footer > a {
@@ -73,7 +81,7 @@ footer > p {
 
 
 main {
-    flex: 1 calc(100vh - 110px);
+    flex: 1 86vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -85,6 +93,7 @@ nav {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
 }
 
 menu {
@@ -92,6 +101,7 @@ menu {
     flex-wrap: wrap;
     flex-direction: row;
     padding-inline-start: 40px;
+    float: right;
 }
 menu li {
     list-style: none;
@@ -104,8 +114,13 @@ nav > a {
 menu > li > a {
     font-size: 3vw;
     color: rgb(115, 115, 115);
+    padding-left: 2vw;
 }
 menu > li > a:hover, a.currPage {
     font-size: 3vw;
     color: whitesmoke;
+    padding-left: 2vw;
+}
+hr {
+    margin: 0;
 }
