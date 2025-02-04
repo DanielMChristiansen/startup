@@ -1,0 +1,13 @@
+/* Table Styling */
+table {
+    border-collapse: collapse;
+    width: 96vw;
+    table-layout: auto;
+}
+
+td {
+    text-align: center;
+    /* Set default so it comes back after being in portrait mode */
+    display: table-cell;
+    border: #9e9e9e 5px solid;
+}
