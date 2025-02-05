@@ -11,3 +11,66 @@ td {
     display: table-cell;
     border: #9e9e9e 5px solid;
 }
+
+/* Main Element Styling */
+main {
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+main table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+main table thead td {
+    font-weight: bold;
+    background-color: #e0e0e0;
+}
+
+main table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+main table tr:hover {
+    background-color: #f1f1f1;
+}
+
+main input[type="url"] {
+    width: calc(100% - 190px); /* Adjust width to fill the remaining space */
+    padding: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+main button {
+    width: 150px; /* Set a fixed width for the button */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+main button:hover {
+    background-color: #0056b3;
+}
+
+main label {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+main input[type="checkbox"] {
+    margin-left: 10px;
+}
+
+main div {
+    width: 100%;
+    display: inline;
+}
