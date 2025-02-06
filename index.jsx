@@ -43,7 +43,7 @@ function AtAGlanceAssignment({ dueDate, className, title, done, classColor }) {
       <td>{dueDate}</td>
       <td style={{ backgroundColor: classColor }}>{className}</td>
       <td>{title}</td>
-      <td><input type="checkbox" checked={done} /></td>
+      <td><input type="checkbox" defaultChecked={done} /></td>
     </tr>
   )
 }
