@@ -39,7 +39,7 @@ main table tr:hover {
     background-color: #f1f1f1;
 }
 
-main input[type="url"] {
+main input {
     width: calc(100% - 190px); /* Adjust width to fill the remaining space */
     padding: 10px;
     margin-right: 10px;
@@ -50,11 +50,9 @@ main input[type="url"] {
 main button {
     width: 150px; /* Set a fixed width for the button */
     padding: 10px 15px;
-    border: none;
     border-radius: 5px;
     background-color: #007bff;
     color: white;
-    cursor: pointer;
 }
 
 main button:hover {
