@@ -37,6 +37,7 @@ function Login() {
   )
 }
 
+
 function AtAGlance() {
   return (
     <main>
@@ -174,27 +175,27 @@ function Setup() {
 function Tutorial() {
   return (
     <main>
-            <h2>How to find Calendar Links in Canvas:</h2>
-            <div class="canvasTutorial">
-                <h3>Step 1: Click on the calendar icon</h3>
-                <img src="tutorial/first_step.png" />
-                <h3>Step 2: Click on "Calendar Feed"</h3>
-                <img src="tutorial/second_step.png" />
-                <h3>Step 3: Copy link</h3>
-                <img src="tutorial/third_step.png" />
-            </div>
-            <h2>How to find Calendar Links in LearningSuite:</h2>
-            <div class="learningSuiteTutorial">
-                <h3>Step 1: Select the class</h3>
-                <img src="tutorial/Learning_suite_step_1.png" />
-                <h3>Step 2: Click on "Schedule"</h3>
-                <img src="tutorial/Learning_suite_step_2.png" />
-                <h3>Step 3: Click on "Get iCalendar Feed"</h3>
-                <img src="tutorial/Learning_suite_step_3.png" />
-                <h3>Step 4: Copy link</h3>
-                <img src="tutorial/Learning_suite_step_4.png" />
-            </div>
-        </main>
+      <h2>How to find Calendar Links in Canvas:</h2>
+      <div class="canvasTutorial">
+        <h3>Step 1: Click on the calendar icon</h3>
+        <img src="tutorial/first_step.png" />
+        <h3>Step 2: Click on "Calendar Feed"</h3>
+        <img src="tutorial/second_step.png" />
+        <h3>Step 3: Copy link</h3>
+        <img src="tutorial/third_step.png" />
+      </div>
+      <h2>How to find Calendar Links in LearningSuite:</h2>
+      <div class="learningSuiteTutorial">
+        <h3>Step 1: Select the class</h3>
+        <img src="tutorial/Learning_suite_step_1.png" />
+        <h3>Step 2: Click on "Schedule"</h3>
+        <img src="tutorial/Learning_suite_step_2.png" />
+        <h3>Step 3: Click on "Get iCalendar Feed"</h3>
+        <img src="tutorial/Learning_suite_step_3.png" />
+        <h3>Step 4: Copy link</h3>
+        <img src="tutorial/Learning_suite_step_4.png" />
+      </div>
+    </main>
   )
 }
 
@@ -205,9 +206,9 @@ function App() {
         <Header />
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/ataglance" element={<AtAGlance />} />
-            <Route path="/setup" element={<Setup />} />
-            <Route path="/tutorial" element={<Tutorial />} />
+            <Route path="/ataglancePage" element={<AtAGlance />} />
+            <Route path="/setupPage" element={<Setup />} />
+            <Route path="/tutorialPage" element={<Tutorial />} />
             <Route path="/demo" element={<Demo />} />
           </Routes>
         <Footer />
@@ -223,9 +224,9 @@ function Header() {
             <a href="#">Schedulify</a>
             <menu>
                 <li><NavLink class="currPage" to="/">Login</NavLink></li>
-                <li><NavLink to="/ataglance">At a Glance</NavLink></li>
-                <li><NavLink to="/setup">Setup</NavLink></li>
-                <li><NavLink to="/tutorial">Tutorial</NavLink></li>
+                <li><NavLink to="/ataglancePage">At a Glance</NavLink></li>
+                <li><NavLink to="/setupPage">Setup</NavLink></li>
+                <li><NavLink to="/tutorialPage">Tutorial</NavLink></li>
             </menu>
         </nav>
     </header>
