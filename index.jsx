@@ -37,11 +37,11 @@ function Login() {
   )
 }
 
-function AtAGlanceAssignment({ dueDate, className, title, done, classColor }) {
+function AtAGlanceAssignment({ dueDate, classTitle, title, done, classColor }) {
   return (
     <tr>
       <td>{dueDate}</td>
-      <td style={{ backgroundColor: classColor }}>{className}</td>
+      <td style={{ backgroundColor: classColor }}>{classTitle}</td>
       <td>{title}</td>
       <td><input type="checkbox" defaultChecked={done} /></td>
     </tr>
@@ -57,16 +57,16 @@ function AtAGlanceNextAssignment({title, dueDate}) {
   )
 }
 
-function AtAGlanceHeaderClass({className, isLearningSuite}) {
+function AtAGlanceHeaderClass({classTitle, isLearningSuite}) {
   return (
-    <td className="class1Color">{className}{isLearningSuite && <sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup>}</td>
+    <td className="class1Color">{classTitle}{isLearningSuite && <sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup>}</td>
   )
 }
 
-function DueDatePopup({className, assignment, dueIn}) {
+function DueDatePopup({classTitle, assignment, dueIn}) {
   <div id="dueDatePopup">
     <h4>Assignment Due Soon:</h4>
-    <span>Class:</span> <span>{className}</span><br />
+    <span>Class:</span> <span>{classTitle}</span><br />
     <span>Assignment:</span> <span>{assignment}</span><br />
     <span>Due In:</span> <span>{dueIn}</span><br />
   </div>
@@ -80,11 +80,11 @@ function AtAGlance() {
             <thead className="biggerText">
               <tr>
                 <td>Classes:</td>
-                <AtAGlanceHeaderClass className="MATH 113" isLearningSuite={true} />
-                <AtAGlanceHeaderClass className="CS 260" isLearningSuite={false} />
-                <AtAGlanceHeaderClass className="CS 235" isLearningSuite={false} />
-                <AtAGlanceHeaderClass className="SWELL 120" isLearningSuite={true} />
-                <AtAGlanceHeaderClass className="CS 202" isLearningSuite={false} />
+                <AtAGlanceHeaderClass classTitle="MATH 113" isLearningSuite={true} />
+                <AtAGlanceHeaderClass classTitle="CS 260" isLearningSuite={false} />
+                <AtAGlanceHeaderClass classTitle="CS 235" isLearningSuite={false} />
+                <AtAGlanceHeaderClass classTitle="SWELL 120" isLearningSuite={true} />
+                <AtAGlanceHeaderClass classTitle="CS 202" isLearningSuite={false} />
               </tr>
             </thead>
             <tbody>
@@ -119,16 +119,16 @@ function AtAGlance() {
               </tr>
             </thead>
             <tbody>    
-              <AtAGlanceAssignment dueDate="1/9" className="CS 235" title="Start of Semester Survey" done={true} classColor="#93c47d" />     
-              <AtAGlanceAssignment dueDate="1/10" className="MATH 113" title="Online 5.3" done={true} classColor="#f9cb9c" />
-              <AtAGlanceAssignment dueDate="1/13" className="CS 235" title="Homework 0" done={true} classColor="#93c47d" />
-              <AtAGlanceAssignment dueDate="1/14" className="CS 260" title="Startup Spec" done={true} classColor="#e06666" />
-              <AtAGlanceAssignment dueDate="1/15" className="MATH 113" title="Online 6.1" done={true} classColor="#f9cb9c" />
-              <AtAGlanceAssignment dueDate="1/17" className="CS 202" title="Module 2 Quiz" done={false} classColor="#666666" />
+              <AtAGlanceAssignment dueDate="1/9" classTitle="CS 235" title="Start of Semester Survey" done={true} classColor="#93c47d" />     
+              <AtAGlanceAssignment dueDate="1/10" classTitle="MATH 113" title="Online 5.3" done={true} classColor="#f9cb9c" />
+              <AtAGlanceAssignment dueDate="1/13" classTitle="CS 235" title="Homework 0" done={true} classColor="#93c47d" />
+              <AtAGlanceAssignment dueDate="1/14" classTitle="CS 260" title="Startup Spec" done={true} classColor="#e06666" />
+              <AtAGlanceAssignment dueDate="1/15" classTitle="MATH 113" title="Online 6.1" done={true} classColor="#f9cb9c" />
+              <AtAGlanceAssignment dueDate="1/17" classTitle="CS 202" title="Module 2 Quiz" done={false} classColor="#666666" />
             </tbody>
         </table>
         <br />
-        <DueDatePopup className="MATH 113" assignment="Online 6.1" dueIn="3 hrs, 25 min, 50 seconds" />        
+        <DueDatePopup classTitle="MATH 113" assignment="Online 6.1" dueIn="3 hrs, 25 min, 50 seconds" />        
     </main>
   )
 }

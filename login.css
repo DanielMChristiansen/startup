@@ -1,4 +1,4 @@
-.loginField {
+#loginPage .loginField {
     box-sizing: border-box;
     width: 100%;
     display: block;
@@ -11,37 +11,37 @@
     border-radius: 15px;
 }
 
-.shrinker {
+#loginPage .shrinker {
     width: 50%;
 }
 
 
-.loginButtons {
+#loginPage .loginButtons {
     width: 100%;
 }
 
-.loginButtons button {
+#loginPage .loginButtons button {
     font-size: 4vw;
     width: 49%;
     border-radius: 15px;
 }
 
-.loginButtons button:nth-child(1) {
+#loginPage .loginButtons button:nth-child(1) {
     background-color: #93C47D;
     float: left;
 }
-.loginButtons button:nth-child(1):active {
+#loginPage .loginButtons button:nth-child(1):active {
     background-color: #83b16f;
     float: left;
     
 }
 
-.loginButtons button:nth-child(2) {
+#loginPage .loginButtons button:nth-child(2) {
     background-color: #6D9EEB;
     float: right;
 }
 
-.loginButtons button:nth-child(2):active {
+#loginPage .loginButtons button:nth-child(2):active {
     background-color: #44659b;
     float: right;
 }
