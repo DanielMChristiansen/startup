@@ -25,10 +25,10 @@ function Demo() {
 function Login() {
   return (
     <main>
-      <div class="shrinker">
-        <input id="emailInput" type="email" placeholder=" 📧 Email:" class="loginField" /><br />
-        <input id="passwordInput" type="password" placeholder=" 🔒 Password:" class="loginField" /><br />
-        <div class="loginButtons">
+      <div className="shrinker">
+        <input id="emailInput" type="email" placeholder=" 📧 Email:" className="loginField" /><br />
+        <input id="passwordInput" type="password" placeholder=" 🔒 Password:" className="loginField" /><br />
+        <div className="loginButtons">
           <button id="loginButton">Login</button>
           <button id="registerButton">Register</button>
         </div>
@@ -37,49 +37,58 @@ function Login() {
   )
 }
 
+function AtAGlanceAssignment({ dueDate, className, title, done, classColor }) {
+  return (
+    <tr>
+      <td>{dueDate}</td>
+      <td style={{ backgroundColor: classColor }}>{className}</td>
+      <td>{title}</td>
+      <td><input type="checkbox" checked={done} /></td>
+    </tr>
+  )
+}
+
+function AtAGlanceNextAssignment({title, dueDate}) {
+  return (
+    <td>
+      <div className="dueDate closeDueDate smallText">Due {dueDate}</div><br />
+      <p>{title}</p>
+    </td>
+  )
+}
 
 function AtAGlance() {
   return (
     <main>
         <br />
         <table id="classesTable">
-            <thead class="biggerText">
+            <thead className="biggerText">
+              <tr>
                 <td>Classes:</td>
-                <td class="class1Color">MATH 113<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup></td>
-                <td class="class2Color">CS 260</td>
-                <td class="class3Color">CS 235</td>
-                <td class="class4Color">SWELL 120<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup></td>
-                <td class="class5Color">CS 202</td>
+                <td className="class1Color">MATH 113<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup></td>
+                <td className="class2Color">CS 260</td>
+                <td className="class3Color">CS 235</td>
+                <td className="class4Color">SWELL 120<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup></td>
+                <td className="class5Color">CS 202</td>
+              </tr>
             </thead>
-            <tr class="normalText">
-                <td class="biggerText">Next Assignment:</td>
-                <td>
-                    <div class="dueDate closeDueDate smallText">Due 1/15</div><br />
-                    <p>Online: 6.1</p>
-                </td>
-                <td>
-                    <div class="dueDate medDueDate smallText">Due 1/21</div><br />
-                    <p>Startup AWS</p>
-                </td>
-                <td>
-                    <div class="dueDate pastDueDate smallText">Due 1/13</div><br />
-                    <p>Homework 1b</p>
-                </td>
-                <td>
-                    <div class="dueDate farDueDate smallText">Due 2/26</div><br />
-                    <p>Final Exam</p>
-                </td>
-                <td>
-                    <div class="dueDate medDueDate smallText">Due 1/17</div><br />
-                    <p>Module 2 Quiz</p>
-                </td>
-            </tr>
+            <tbody>
+              <tr className="normalText">
+                <td className="biggerText">Next Assignment:</td>
+                <AtAGlanceNextAssignment title="Online 6.1" dueDate="1/15" />
+                <AtAGlanceNextAssignment title="Startup AWS" dueDate="1/21" />
+                <AtAGlanceNextAssignment title="Homework 1b" dueDate="1/13" />
+                <AtAGlanceNextAssignment title="Final Exam" dueDate="2/26" />
+                <AtAGlanceNextAssignment title="Module 2 Quiz" dueDate="1/17" />
+              </tr>
+            </tbody>
         </table>
         <br />
-        <span class="sameLine biggerText">Assignments:<button id="addAssignmentButton" class="biggerText">+ ADD</button></span> 
+        <span className="sameLine biggerText">Assignments:<button id="addAssignmentButton" className="biggerText">+ ADD</button></span> 
         <br />
-        <table id="assignmentsTable" class="biggerText">
+        <table id="assignmentsTable" className="biggerText">
             <thead>
+              <tr>
                 <td>
                     <strong>Date</strong>
                 </td>
@@ -92,43 +101,16 @@ function AtAGlance() {
                 <td>
                     <strong>Done?</strong>
                 </td>
+              </tr>
             </thead>
-            <tr>
-                <td>1/9</td>
-                <td class="class3Color">CS 235</td>
-                <td>Start of Semester Survey</td>
-                <td><input type="checkbox" checked /></td>
-            </tr>
-            <tr>
-                <td>1/10</td>
-                <td class="class1Color">MATH 113</td>
-                <td>Online 5.3</td>
-                <td><input type="checkbox" checked /></td>
-            </tr>
-            <tr>
-                <td>1/13</td>
-                <td class="class3Color">CS 235</td>
-                <td>Homework 0</td>
-                <td><input type="checkbox" checked /></td>
-            </tr>
-            <tr>
-                <td>1/14</td>
-                <td class="class2Color">CS 260</td>
-                <td>Startup Spec</td>
-                <td><input type="checkbox" checked /></td>
-            </tr>
-            <tr>
-                <td>1/15</td>
-                <td class="class1Color">MATH 113</td>
-                <td>Online 6.1</td>
-                <td><input type="checkbox" checked /></td>
-            </tr>
-            <tr>
-                <td>1/17</td>
-                <td class="class5Color">CS 202</td>
-                <td>Module 2 Quiz</td>
-                <td><input type="checkbox" /></td>
-            </tr>
+            <tbody>    
+              <AtAGlanceAssignment dueDate="1/9" className="CS 235" title="Start of Semester Survey" done={true} classColor="#93c47d" />     
+              <AtAGlanceAssignment dueDate="1/10" className="MATH 113" title="Online 5.3" done={true} classColor="#f9cb9c" />
+              <AtAGlanceAssignment dueDate="1/13" className="CS 235" title="Homework 0" done={true} classColor="#93c47d" />
+              <AtAGlanceAssignment dueDate="1/14" className="CS 260" title="Startup Spec" done={true} classColor="#e06666" />
+              <AtAGlanceAssignment dueDate="1/15" className="MATH 113" title="Online 6.1" done={true} classColor="#f9cb9c" />
+              <AtAGlanceAssignment dueDate="1/17" className="CS 202" title="Module 2 Quiz" done={false} classColor="#666666" />
+            </tbody>
         </table>
         <br />
         <div id="dueDatePopup">
@@ -147,26 +129,30 @@ function Setup() {
     <main>
       <table id="calendarAddTable">
         <thead>
+          <tr>
             <td><strong>Class</strong></td>
             <td><strong>Calendar Link</strong></td>
             <td></td>
+          </tr>
         </thead>
-        <tr>
-            <td>Canvas</td>
-            <td>CALENDAR LINK HERE</td>
-            <td><button>🗑️</button></td>
-        </tr>
-        <tr>
-            <td><img width="15px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" />MATH 113</td>
-            <td>CALENDAR LINK HERE</td>
-            <td><button>🗑️</button></td>
-        </tr>
+        <tbody>
+          <tr>
+              <td>Canvas</td>
+              <td>CALENDAR LINK HERE</td>
+              <td><button>🗑️</button></td>
+          </tr>
+          <tr>
+              <td><img width="15px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" />MATH 113</td>
+              <td>CALENDAR LINK HERE</td>
+              <td><button>🗑️</button></td>
+          </tr>
+        </tbody>
       </table>
       <br />
       <div>
         <input type="url" placeholder="Calendar Link Here" id="calendarUrlInput" /><button id="addCalendarButton">Add New Calendar</button>
         <br />
-        <label for="isLearningSuiteCheckbox">LearningSuite Class?</label><input type="checkbox" name="isLearningSuiteCheckbox" id="isLearningSuiteCheckbox" />
+        <label htmlFor="isLearningSuiteCheckbox">LearningSuite Class?</label><input type="checkbox" name="isLearningSuiteCheckbox" id="isLearningSuiteCheckbox" />
       </div>
     </main> 
   )
@@ -176,7 +162,7 @@ function Tutorial() {
   return (
     <main>
       <h2>How to find Calendar Links in Canvas:</h2>
-      <div class="canvasTutorial">
+      <div className="canvasTutorial">
         <h3>Step 1: Click on the calendar icon</h3>
         <img src="tutorial/first_step.png" />
         <h3>Step 2: Click on "Calendar Feed"</h3>
@@ -185,7 +171,7 @@ function Tutorial() {
         <img src="tutorial/third_step.png" />
       </div>
       <h2>How to find Calendar Links in LearningSuite:</h2>
-      <div class="learningSuiteTutorial">
+      <div className="learningSuiteTutorial">
         <h3>Step 1: Select the class</h3>
         <img src="tutorial/Learning_suite_step_1.png" />
         <h3>Step 2: Click on "Schedule"</h3>
@@ -223,7 +209,7 @@ function Header() {
         <nav>
             <a href="#">Schedulify</a>
             <menu>
-                <li><NavLink class="currPage" to="/">Login</NavLink></li>
+                <li><NavLink className="currPage" to="/">Login</NavLink></li>
                 <li><NavLink to="/ataglancePage">At a Glance</NavLink></li>
                 <li><NavLink to="/setupPage">Setup</NavLink></li>
                 <li><NavLink to="/tutorialPage">Tutorial</NavLink></li>
