@@ -63,6 +63,15 @@ function AtAGlanceHeaderClass({className, isLearningSuite}) {
   )
 }
 
+function DueDatePopup({className, assignment, dueIn}) {
+  <div id="dueDatePopup">
+    <h4>Assignment Due Soon:</h4>
+    <span>Class:</span> <span>{className}</span><br />
+    <span>Assignment:</span> <span>{assignment}</span><br />
+    <span>Due In:</span> <span>{dueIn}</span><br />
+  </div>
+}
+
 function AtAGlance() {
   return (
     <main>
@@ -119,13 +128,7 @@ function AtAGlance() {
             </tbody>
         </table>
         <br />
-        <div id="dueDatePopup">
-            <h4>Assignment Due Soon:</h4>
-            <span>Class:</span> <span>MATH 113</span><br />
-            <span>Assignment:</span> <span>Online 6.1</span><br />
-            <span>Due In:</span> <span>3 hrs, 25 min, 50 seconds</span><br />
-        </div>
-        
+        <DueDatePopup className="MATH 113" assignment="Online 6.1" dueIn="3 hrs, 25 min, 50 seconds" />        
     </main>
   )
 }
