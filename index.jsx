@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
 import './headerandfooter.css'
+import './login.css'
+import './ataglance.css'
+import './setup.css'
+import './tutorial.css'
 
 function Demo() {
   const [bgColor, setBgColor] = React.useState('white');
