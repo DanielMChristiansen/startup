@@ -24,7 +24,7 @@ function Demo() {
 
 function Login() {
   return (
-    <main>
+    <main id="loginPage">
       <div className="shrinker">
         <input id="emailInput" type="email" placeholder=" 📧 Email:" className="loginField" /><br />
         <input id="passwordInput" type="password" placeholder=" 🔒 Password:" className="loginField" /><br />
@@ -74,7 +74,7 @@ function DueDatePopup({classTitle, assignment, dueIn}) {
 
 function AtAGlance() {
   return (
-    <main>
+    <main id="atAGlancePage">
         <br />
         <table id="classesTable">
             <thead className="biggerText">
@@ -135,7 +135,7 @@ function AtAGlance() {
 
 function Setup() {
   return (
-    <main>
+    <main id="setupPage">
       <table id="calendarAddTable">
         <thead>
           <tr>
@@ -169,7 +169,7 @@ function Setup() {
 
 function Tutorial() {
   return (
-    <main>
+    <main id="tutorialPage">
       <h2>How to find Calendar Links in Canvas:</h2>
       <div className="canvasTutorial">
         <h3>Step 1: Click on the calendar icon</h3>
