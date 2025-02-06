@@ -57,6 +57,12 @@ function AtAGlanceNextAssignment({title, dueDate}) {
   )
 }
 
+function AtAGlanceHeaderClass({className, isLearningSuite}) {
+  return (
+    <td className="class1Color">{className}{isLearningSuite && <sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup>}</td>
+  )
+}
+
 function AtAGlance() {
   return (
     <main>
@@ -65,11 +71,11 @@ function AtAGlance() {
             <thead className="biggerText">
               <tr>
                 <td>Classes:</td>
-                <td className="class1Color">MATH 113<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup></td>
-                <td className="class2Color">CS 260</td>
-                <td className="class3Color">CS 235</td>
-                <td className="class4Color">SWELL 120<sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup></td>
-                <td className="class5Color">CS 202</td>
+                <AtAGlanceHeaderClass className="MATH 113" isLearningSuite={true} />
+                <AtAGlanceHeaderClass className="CS 260" isLearningSuite={false} />
+                <AtAGlanceHeaderClass className="CS 235" isLearningSuite={false} />
+                <AtAGlanceHeaderClass className="SWELL 120" isLearningSuite={true} />
+                <AtAGlanceHeaderClass className="CS 202" isLearningSuite={false} />
               </tr>
             </thead>
             <tbody>
