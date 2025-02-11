@@ -1,11 +1,11 @@
 /* Table Styling */
-table {
+#setupPage table {
     border-collapse: collapse;
     width: 96vw;
     table-layout: auto;
 }
 
-td {
+#setupPage td {
     text-align: center;
     /* Set default so it comes back after being in portrait mode */
     display: table-cell;
@@ -13,7 +13,7 @@ td {
 }
 
 /* Main Element Styling */
-main {
+main#setupPage {
     padding-left: 20px;
     padding-right: 20px;
     border-radius: 10px;
@@ -21,25 +21,25 @@ main {
     font-family: Arial, sans-serif;
 }
 
-main table {
+main#setupPage table {
     width: 100%;
     margin-bottom: 20px;
 }
 
-main table thead td {
+main#setupPage table thead td {
     font-weight: bold;
     background-color: #e0e0e0;
 }
 
-main table tr:nth-child(even) {
+main#setupPage table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-main table tr:hover {
+main#setupPage table tr:hover {
     background-color: #f1f1f1;
 }
 
-main input {
+main#setupPage input {
     width: calc(100% - 190px); /* Adjust width to fill the remaining space */
     padding: 10px;
     margin-right: 10px;
@@ -47,7 +47,7 @@ main input {
     border-radius: 5px;
 }
 
-main button {
+main#setupPage button {
     width: 150px; /* Set a fixed width for the button */
     padding: 10px 15px;
     border-radius: 5px;
@@ -55,20 +55,20 @@ main button {
     color: white;
 }
 
-main button:hover {
+main#setupPage button:hover {
     background-color: #0056b3;
 }
 
-main label {
+main#setupPage label {
     display: inline-block;
     margin-top: 10px;
 }
 
-main input[type="checkbox"] {
+main#setupPage input[type="checkbox"] {
     margin-left: 10px;
 }
 
-main div {
+main#setupPage div {
     width: 100%;
     display: inline;
 }
