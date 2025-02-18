@@ -23,7 +23,7 @@ function AtAGlanceAssignment({ dueDate, classTitle, title, done, classColor }) {
   
   function AtAGlanceHeaderClass({classTitle, isLearningSuite, classColor}) {
     return (
-      <td style={{ backgroundColor: classColor }}>{classTitle}{isLearningSuite && <sup><img width="20px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" /></sup>}</td>
+      <td style={{ backgroundColor: classColor }}>{classTitle}{isLearningSuite && <sup><img width="20px" src="https://learningsuite.byu.edu/images/ls_logo.svg" alt="LearningSuite icon" /></sup>}</td>
     )
   }
   

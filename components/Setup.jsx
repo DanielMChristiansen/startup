@@ -19,7 +19,7 @@ function Setup() {
                 <td><button>🗑️</button></td>
             </tr>
             <tr>
-                <td><img width="15px" src="https://learningsuite.byu.edu/images/apple-touch-icon.png" alt="LearningSuite icon" />MATH 113</td>
+                <td><img width="15px" src="https://learningsuite.byu.edu/images/ls_logo.svg" alt="LearningSuite icon" /> MATH 113</td>
                 <td>CALENDAR LINK HERE</td>
                 <td><button>🗑️</button></td>
             </tr>
