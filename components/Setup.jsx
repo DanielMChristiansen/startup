@@ -2,7 +2,22 @@ import React from 'react';
 import '../setup.css';
 import ICAL from 'ical.js';
 
-let CALENDARS = [
+let CALENDARS;
+if (localStorage.getItem("calendars")) {
+  // Clean up Promise objects in storage
+  let calendars = JSON.parse(localStorage.getItem("calendars"));
+  calendars.forEach((calendar, index) => {
+    if (calendar.class.status) {
+      calendar.class = calendar.class.value
+      console.log(`Cleaned up calendar ${calendar.class}`);
+    }
+  });
+  localStorage.setItem("calendars", JSON.stringify(calendars));
+
+
+  CALENDARS = JSON.parse(localStorage.getItem("calendars"));
+} else {
+CALENDARS = [
   {
     class: "Canvas",
     link: "CALENDAR LINK HERE",
@@ -14,18 +29,27 @@ let CALENDARS = [
     isLearningSuite: true
   }
 ];
+}
+
+function addCalendarsToDatabase() {
+  // Implement when I have a database
+  localStorage.setItem("calendars", JSON.stringify(CALENDARS));
+}
+
+function removeCalendarFromDatabase(calendar) {
+  // Implement when I have a database
+  localStorage.setItem("calendars", JSON.stringify(CALENDARS));
+}
 
 async function getClassName(url) {
   if (url.includes("byu.instructure.com")) {
     return "Canvas";
   } else if (url.includes("learningsuite.byu.edu")) {
-    const response = await fetch(`https://proxy.corsfix.com/?${url}`);
-    const data = await response.text();
-    const jcalData = ICAL.parse(data);
+    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+    const data = await response.json();
+    const jcalData = ICAL.parse(data.contents);
     const comp = new ICAL.Component(jcalData);
-    console.log(comp);
     const name = comp.getFirstPropertyValue("x-wr-calname");
-    console.log(name);
     return name;
   } else {
     return "Unknown Class";
@@ -37,24 +61,30 @@ function Setup() {
   
   function removeCalendar(index) {
     setCalendarState(calendarState.filter((calendar, i) => i !== index));
-    CALENDARS = calendarState;
+    CALENDARS = calendarState.filter((calendar, i) => i !== index);
+    removeCalendarFromDatabase();
   }
 
   function addCalendar() {
     let calendarUrlInput = document.getElementById("calendarUrlInput");
     let calendarURL = calendarUrlInput.value;
-    if (!calendarURL) return;
-    if (calendarURL.includes("learningsuite.byu.edu") || calendarURL.includes("byu.instructure.com")) {
-      let newCalendar = {
-        class: getClassName(calendarURL),
-        link: calendarUrlInput.value,
-        isLearningSuite: calendarURL.includes("learningsuite.byu.edu")
-      };
-      setCalendarState([...calendarState, newCalendar]);
-      CALENDARS = calendarState;
-    } else {
-      alert("Invalid URL");
+    if (calendarURL) {
+      if (!calendarURL.includes("learningsuite.byu.edu") && !calendarURL.includes("byu.instructure.com")) {
+        alert("Invalid URL");
+      } else {
+        let newCalendar = {
+          class: getClassName(calendarURL),
+          link: calendarUrlInput.value,
+          isLearningSuite: calendarURL.includes("learningsuite.byu.edu")
+        };
+        const updatedCalendars = [...calendarState, newCalendar];
+        setCalendarState(updatedCalendars);
+        CALENDARS = updatedCalendars;
+        calendarUrlInput.value = "";
+      }
     }
+    
+    addCalendarsToDatabase();
   }
   return (
     <main id="setupPage">
@@ -68,7 +98,12 @@ function Setup() {
         </thead>
         <tbody>
           {calendarState.map((calendar, index) => (
-            <CalendarElem calendar={calendar} index={index} removeFunc={removeCalendar}/>
+            <tr>
+              {calendar.isLearningSuite ? <td><img width="15px" src="https://learningsuite.byu.edu/images/ls_logo.svg" alt="LearningSuite icon" /> {calendar.class}</td>: <td>{calendar.class}</td>}
+              
+              <td>{calendar.link}</td>
+              <td><button onClick={() => removeCalendar(index)}>🗑️</button></td>
+            </tr>
           ))}
         </tbody>
       </table>
@@ -77,16 +112,6 @@ function Setup() {
         <input type="url" placeholder="Calendar Link Here" id="calendarUrlInput" /><button id="addCalendarButton" onClick={addCalendar}>Add New Calendar</button>
       </div>
     </main>
-  )
-}
-
-function CalendarElem({calendar, index, removeFunc}) {
-  return (
-    <tr>
-      {calendar.isLearningSuite ? <td><img width="15px" src="https://learningsuite.byu.edu/images/ls_logo.svg" alt="LearningSuite icon" /> {calendar.class}</td> : <td>{calendar.class}</td>}
-      <td>{calendar.link}</td>
-      <td><button onClick={() => removeFunc(index)}>🗑️</button></td>
-    </tr>
   )
 }
 
