@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ cp -r ../tutorial ../dist/tutorial
+
 while getopts k:h:s: flag
 do
     case "${flag}" in
