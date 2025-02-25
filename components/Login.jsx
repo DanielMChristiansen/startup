@@ -12,7 +12,9 @@ function Login() {
             <NavLink to="/ataglancePage">
               <button id="loginButton">Login</button>
             </NavLink>
-            <button id="registerButton">Register</button>
+            <NavLink to="/ataglancePage">
+              <button id="registerButton">Register</button>
+            </NavLink>
           </div>
         </div>
       </main>
