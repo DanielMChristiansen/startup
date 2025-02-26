@@ -25,7 +25,7 @@ function Login() {
       return;
     }
     // Will interact with the backend here
-    alert.log(`Email: ${email}, Password: ${password}`);
+    console.log(`Email: ${email}, Password: ${password}`);
 
     localStorage.setItem("email", email);
     localStorage.setItem("authenticated", true);
