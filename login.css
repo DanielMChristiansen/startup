@@ -26,22 +26,22 @@
     border-radius: 15px;
 }
 
-#loginPage .loginButtons button:nth-child(1) {
+#loginPage .loginButtons a:nth-child(1) button {
     background-color: #93C47D;
     float: left;
 }
-#loginPage .loginButtons button:nth-child(1):active {
+#loginPage .loginButtons a:nth-child(1) button:active {
     background-color: #83b16f;
     float: left;
     
 }
 
-#loginPage .loginButtons button:nth-child(2) {
+#loginPage .loginButtons a:nth-child(2) button{
     background-color: #6D9EEB;
     float: right;
 }
 
-#loginPage .loginButtons button:nth-child(2):active {
+#loginPage .loginButtons a:nth-child(2) button:active {
     background-color: #44659b;
     float: right;
 }
