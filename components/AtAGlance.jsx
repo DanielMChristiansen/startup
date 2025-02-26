@@ -1,16 +1,25 @@
 import React from 'react';
-import '../ataglance.css'
+import '../ataglance.css';
+import { useNavigate } from "react-router-dom";
 
 function AtAGlanceAssignment({ dueDate, classTitle, title, done, classColor }) {
-    return (
-      <tr>
-        <td>{dueDate}</td>
-        <td style={{ backgroundColor: classColor }}>{classTitle}</td>
-        <td>{title}</td>
-        <td><input type="checkbox" defaultChecked={done} /></td>
-      </tr>
-    )
-  }
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    if (!localStorage.getItem('authenticated')) {
+      alert('You must be logged in to view this page.' + Math.random())
+      navigate('/')
+      return;
+    }
+  }, [])
+  return (
+    <tr>
+      <td>{dueDate}</td>
+      <td style={{ backgroundColor: classColor }}>{classTitle}</td>
+      <td>{title}</td>
+      <td><input type="checkbox" defaultChecked={done} /></td>
+    </tr>
+  )
+}
   
   function AtAGlanceNextAssignment({title, dueDate}) {
     return (
