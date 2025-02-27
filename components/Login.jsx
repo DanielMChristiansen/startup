@@ -29,7 +29,7 @@ function Login() {
 
     localStorage.setItem("email", email);
     localStorage.setItem("authenticated", true);
-    navigate("/ataglancePage");
+    navigate("/setup");
   }
 
   function registerButtonClick() {
@@ -45,7 +45,7 @@ function Login() {
     }
     localStorage.setItem("email", document.getElementById("emailInput").value);
     localStorage.setItem("authenticated", true);
-    navigate("/ataglancePage");
+    navigate("/setup");
   }
   return (
     <main id="loginPage">
