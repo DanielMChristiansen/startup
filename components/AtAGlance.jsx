@@ -60,24 +60,20 @@ async function getAssignments(calendar) {
 
 function getClasses() {
   let classes = [];
-  // console.log(ASSIGNMENTS);
   ASSIGNMENTS.forEach(assignment => {
     if (!classes.includes(assignment.classTitle)) {
       classes.push(assignment.classTitle);
     }
   });
-  console.log(classes.length);
-  // console.log(classes)
   return classes;
 }
 
 function getAssignmentColor(assignment) {
   let classes = getClasses();
   for (let index = 0; index < classes.length; index++) {
-    const classObj = classes[index];
-    if (classObj === assignment.classTitle) {
-      // console.log(classObj);
-      return getClassColor(classObj);
+    const className = classes[index];
+    if (className === assignment.classTitle) {
+      return getClassColor(className);
     }
   }
 }
@@ -91,6 +87,11 @@ function getClassColor(className) {
     return color;
   }
 
+}
+
+function getNextAssignment(className) {
+  let nextAssignment = ASSIGNMENTS.find(assignment => assignment.classTitle === className);
+  return nextAssignment;
 }
 
 function AtAGlanceAssignment({ dueDate, classTitle, title, done, classColor }) {
@@ -147,7 +148,6 @@ function AtAGlance() {
     }
     loadAssignments().then(() => {
       setDoneLoading(true);
-      // console.log("Loaded assignments");
     });
   }, [])
 
@@ -166,9 +166,8 @@ function AtAGlance() {
               <tr>
                 <td>Classes:</td>
                 {
-                  classes.map((classObj, index) => {
-                    console.log(classObj);
-                    return <AtAGlanceHeaderClass key={index} classTitle={classObj.title} classColor={classObj.color} />
+                  classes.map((className, index) => {
+                    return <AtAGlanceHeaderClass key={index} classTitle={className} classColor={getClassColor(className)} />
                   })
                 }
               </tr>
@@ -176,11 +175,12 @@ function AtAGlance() {
             <tbody>
               <tr className="normalText">
                 <td className="biggerText">Next Assignment:</td>
-                <AtAGlanceNextAssignment title="Online 6.1" dueDate="1/15" />
-                <AtAGlanceNextAssignment title="Startup AWS" dueDate="1/21" />
-                <AtAGlanceNextAssignment title="Homework 1b" dueDate="1/13" />
-                <AtAGlanceNextAssignment title="Final Exam" dueDate="2/26" />
-                <AtAGlanceNextAssignment title="Module 2 Quiz" dueDate="1/17" />
+                {
+                  classes.map((className, index) => {
+                    let assignment = getNextAssignment(className);
+                    return <AtAGlanceNextAssignment key={index} title={assignment.title} dueDate={assignment.dueDate} />
+                  })
+                }
               </tr>
             </tbody>
         </table>
