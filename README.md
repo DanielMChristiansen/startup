@@ -103,10 +103,8 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 ## 🚀 React part 2: Reactivity
 
-For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
-
-- [ ] **All functionality implemented or mocked out** - I did not complete this part of the deliverable.
-- [ ] **Hooks** - I did not complete this part of the deliverable.
+- [x] **All functionality implemented or mocked out** - My application takes input from the user for calendar links and fetches data based upon that.
+- [x] **Hooks** - I used `useState` and `useEffect` hooks.
 
 ## 🚀 Service deliverable
 
