@@ -5,30 +5,25 @@ import ICAL from 'ical.js';
 let CALENDARS;
 if (localStorage.getItem("calendars")) {
   // Clean up Promise objects in storage
+  cleanCalendars();
+  CALENDARS = JSON.parse(localStorage.getItem("calendars"));
+} else {
+CALENDARS = [
+];
+}
+
+function cleanCalendars() {
   let calendars = JSON.parse(localStorage.getItem("calendars"));
   calendars.forEach((calendar, index) => {
     if (calendar.class.status) {
       calendar.class = calendar.class.value
       console.log(`Cleaned up calendar ${calendar.class}`);
+    } else if (typeof(calendar.class) != "string") {
+      console.log(`Calendar class is not a string! ${JSON.stringify(calendar.class)}`);
+      calendar.class = calendar.link;
     }
   });
   localStorage.setItem("calendars", JSON.stringify(calendars));
-
-
-  CALENDARS = JSON.parse(localStorage.getItem("calendars"));
-} else {
-CALENDARS = [
-  {
-    class: "Canvas",
-    link: "CALENDAR LINK HERE",
-    isLearningSuite: false
-  },
-  {
-    class: "MATH 113",
-    link: "CALENDAR LINK HERE",
-    isLearningSuite: true
-  }
-];
 }
 
 function addCalendarsToDatabase() {
@@ -58,6 +53,15 @@ async function getClassName(url) {
 
 function Setup() {
   let [calendarState, setCalendarState] = React.useState(CALENDARS);
+  React.useEffect(() => {
+    if (!localStorage.getItem('authenticated')) {
+      alert('You must be logged in to view this page.' + Math.random())
+      navigate('/')
+      return;
+    }
+    addCalendarsToDatabase();
+    cleanCalendars();
+  }, [])
   
   function removeCalendar(index) {
     setCalendarState(calendarState.filter((calendar, i) => i !== index));
@@ -65,7 +69,7 @@ function Setup() {
     removeCalendarFromDatabase();
   }
 
-  function addCalendar() {
+  async function addCalendar() {
     let calendarUrlInput = document.getElementById("calendarUrlInput");
     let calendarURL = calendarUrlInput.value;
     if (calendarURL) {
@@ -73,7 +77,7 @@ function Setup() {
         alert("Invalid URL");
       } else {
         let newCalendar = {
-          class: getClassName(calendarURL),
+          class: await getClassName(calendarURL),
           link: calendarUrlInput.value,
           isLearningSuite: calendarURL.includes("learningsuite.byu.edu")
         };
