@@ -2,6 +2,8 @@ import React from 'react';
 import '../ataglance.css';
 import { useNavigate } from "react-router-dom";
 import ICAL from 'ical.js';
+import {Assignment, NextAssignment, HeaderClass} from './AssignmentComponents'
+import {getAssignments, getClasses} from './AssignmentFunctions'
 
 let ASSIGNMENTS = [];
 let CLASS_COLORS = {};
@@ -16,60 +18,8 @@ async function loadAssignments() {
   });
 }
 
-async function getAssignments(calendar) {
-  const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(calendar.link)}`);
-  const data = await response.json();
-  
-  if (!calendar.isLearningSuite) { // data comes base64 encoded from canvas for some reason
-    let b64Data = data.contents.split(",")[1];
-    // This does the decoding for some reason, no idea why it's called that
-    data.contents = atob(b64Data);
-  }
-  
-  const jcalData = ICAL.parse(data.contents);
-  const component = new ICAL.Component(jcalData);
-  if (calendar.isLearningSuite) {
-    let assignments = component.getAllSubcomponents("vevent").map(assignment => {
-      return {
-        id: assignment.getFirstPropertyValue("uid"),
-        dueDate: assignment.getFirstPropertyValue("dtstart").toJSDate().toLocaleDateString(),
-        classTitle: calendar.class,
-        title: assignment.getFirstPropertyValue("summary")
-      }
-    });
-    return assignments;
-  } else {
-    let assignments = component.getAllSubcomponents("vevent").map(assignment => {
-      // Take class name from assignment title
-      let assignmentTitle = assignment.getFirstPropertyValue("summary");
-      assignmentTitle = assignmentTitle.split("[");
-      let className = assignmentTitle.pop();
-      // Remove end bracket from class name
-      className = className.replace("]", "");
-      assignmentTitle = assignmentTitle.join(" ");
-      return {
-        id: assignment.getFirstPropertyValue("uid"),
-        dueDate: assignment.getFirstPropertyValue("dtstart").toJSDate().toLocaleDateString(),
-        classTitle: className,
-        title: assignmentTitle
-      }
-    });
-    return assignments
-  }
-}
-
-function getClasses() {
-  let classes = [];
-  ASSIGNMENTS.forEach(assignment => {
-    if (!classes.includes(assignment.classTitle)) {
-      classes.push(assignment.classTitle);
-    }
-  });
-  return classes;
-}
-
 function getAssignmentColor(assignment) {
-  let classes = getClasses();
+  let classes = getClasses(ASSIGNMENTS);
   for (let index = 0; index < classes.length; index++) {
     const className = classes[index];
     if (className === assignment.classTitle) {
@@ -92,32 +42,6 @@ function getClassColor(className) {
 function getNextAssignment(className) {
   let nextAssignment = ASSIGNMENTS.find(assignment => assignment.classTitle === className);
   return nextAssignment;
-}
-
-function AtAGlanceAssignment({ dueDate, classTitle, title, done, classColor }) {
-  return (
-    <tr>
-      <td>{dueDate}</td>
-      <td style={{ backgroundColor: classColor }}>{classTitle}</td>
-      <td>{title}</td>
-      <td><input type="checkbox" defaultChecked={done} /></td>
-    </tr>
-  )
-}
-  
-function AtAGlanceNextAssignment({title, dueDate}) {
-  return (
-    <td>
-      <div className="dueDate closeDueDate smallText">Due {dueDate}</div><br />
-      <p>{title}</p>
-    </td>
-  )
-}
-
-function AtAGlanceHeaderClass({classTitle, classColor}) {
-  return (
-    <td style={{ backgroundColor: classColor }}>{classTitle}</td>
-  )
 }
 
 function DueDatePopup({classTitle, assignment, dueIn}) {
@@ -153,7 +77,7 @@ function AtAGlance() {
 
   React.useEffect(() => {
     setTimeout(() => {
-      setClasses(getClasses());
+      setClasses(getClasses(ASSIGNMENTS));
     }, 1000);
   }, []);
 
@@ -167,7 +91,7 @@ function AtAGlance() {
                 <td>Classes:</td>
                 {
                   classes.map((className, index) => {
-                    return <AtAGlanceHeaderClass key={index} classTitle={className} classColor={getClassColor(className)} />
+                    return <HeaderClass key={index} classTitle={className} classColor={getClassColor(className)} />
                   })
                 }
               </tr>
@@ -178,7 +102,7 @@ function AtAGlance() {
                 {
                   classes.map((className, index) => {
                     let assignment = getNextAssignment(className);
-                    return <AtAGlanceNextAssignment key={index} title={assignment.title} dueDate={assignment.dueDate} />
+                    return <NextAssignment key={index} title={assignment.title} dueDate={assignment.dueDate} />
                   })
                 }
               </tr>
@@ -207,7 +131,7 @@ function AtAGlance() {
             <tbody>
               {
                 ASSIGNMENTS.map((assignment, index) => (
-                  <AtAGlanceAssignment key={index} dueDate={assignment.dueDate} classTitle={assignment.classTitle} title={assignment.title} done={false} classColor={getAssignmentColor(assignment)} />
+                  <Assignment key={index} dueDate={assignment.dueDate} classTitle={assignment.classTitle} title={assignment.title} done={false} classColor={getAssignmentColor(assignment)} />
                 ))
               }
             </tbody>
