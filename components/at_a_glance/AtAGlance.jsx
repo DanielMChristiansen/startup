@@ -55,7 +55,8 @@ function DueDatePopup({classTitle, assignment, dueIn}) {
   
 function AtAGlance() {
   const navigate = useNavigate();
-  const [classes, setClasses] = React.useState([]);
+  let [classes, setClasses] = React.useState([]);
+  let [completedAssignments, setCompletedAssignments] = React.useState([]);
 
   let [doneLoading, setDoneLoading] = React.useState(false);
   React.useEffect(() => {
@@ -131,7 +132,7 @@ function AtAGlance() {
             <tbody>
               {
                 ASSIGNMENTS.map((assignment, index) => (
-                  <Assignment key={index} dueDate={assignment.dueDate} classTitle={assignment.classTitle} title={assignment.title} done={false} classColor={getAssignmentColor(assignment)} />
+                  <Assignment key={index} dueDate={assignment.dueDate} classTitle={assignment.classTitle} title={assignment.title} id={assignment.id} done={false} classColor={getAssignmentColor(assignment)} />
                 ))
               }
             </tbody>
