@@ -1,15 +1,16 @@
 import ICAL from 'ical.js';
 async function getAssignments(calendar) {
-    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(calendar.link)}`);
-    const data = await response.json();
     
-    if (!calendar.isLearningSuite) { // data comes base64 encoded from canvas for some reason
-        let b64Data = data.contents.split(",")[1];
-        // This does the decoding for some reason, no idea why it's called that
-        data.contents = atob(b64Data);
-    }
+    const response = await fetch(`${document.location.protocol}//${document.location.hostname}/corsbypass?url=${encodeURIComponent(calendar.link)}`);
+    const data = await response.text();
     
-    const jcalData = ICAL.parse(data.contents);
+    // if (!calendar.isLearningSuite) { // data comes base64 encoded from canvas for some reason
+    //     let b64Data = data.split(",")[1];
+    //     // This does the decoding for some reason, no idea why it's called that
+    //     data = atob(b64Data);
+    // }
+    
+    const jcalData = ICAL.parse(data);
     const component = new ICAL.Component(jcalData);
     if (calendar.isLearningSuite) {
         let assignments = component.getAllSubcomponents("vevent").map(assignment => {

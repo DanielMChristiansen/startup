@@ -52,7 +52,7 @@ function DueDatePopup({classTitle, assignment, dueIn}) {
     <span>Due In:</span> <span>{dueIn}</span><br />
   </div>
 }
-  
+
 function AtAGlance() {
   const navigate = useNavigate();
   let [classes, setClasses] = React.useState([]);

@@ -1,28 +1,18 @@
 const express = require("express");
 const axios = require("axios");
+const bcrypt = require("bcryptjs");
+const cors = require("cors");
 
 const app = express();
-const port = 3000;
+const port = 80;
+
+const passwords = {};
+
+app.use(express.json());
+
+app.use(cors());
 
 app.get("/corsbypass", (req, res) => {
-  /*
-    const xhr = new XMLHttpRequest();
-    const urlToFetch = "https://example.com"; // Replace with the URL you want to fetch
-
-    xhr.open("GET", `/corsbypass?url=${encodeURIComponent(urlToFetch)}`, true);
-
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                console.log("Response:", xhr.responseText);
-            } else {
-                console.error("Error fetching the URL");
-            }
-        }
-    };
-
-    xhr.send();
-    */
   const targetUrl = req.query.url;
   if (!targetUrl) {
     return res.status(400).send("URL query parameter is required");
@@ -37,6 +27,24 @@ app.get("/corsbypass", (req, res) => {
     .catch((error) => {
       res.status(500).send("Error fetching the requested URL");
     });
+});
+
+app.post("/register", async (req, res) => {
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+  passwords[req.body.email] = hashedPassword;
+  res.send({ user: req.body.email });
+});
+
+app.put("/login", async (req, res) => {
+  const hashedPassword = passwords[req.body.email];
+  if (
+    hashedPassword &&
+    (await bcrypt.compare(req.body.password, hashedPassword))
+  ) {
+    res.send({ user: req.body.email });
+  } else {
+    res.status(401).send("Invalid email or password");
+  }
 });
 
 app.listen(port, () => {
