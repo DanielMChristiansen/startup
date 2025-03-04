@@ -1,9 +1,9 @@
 import React from 'react';
-import '../ataglance.css';
+import '../../ataglance.css';
 import { useNavigate } from "react-router-dom";
 import ICAL from 'ical.js';
 import {Assignment, NextAssignment, HeaderClass} from './AssignmentComponents';
-import {getAssignments, getClasses} from './AssignmentFunctions';
+import {getAssignments, getClasses} from './Helpers';
 
 let ASSIGNMENTS = [];
 let CLASS_COLORS = {};

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../ataglance.css';
+import '../../ataglance.css';
 
 function Assignment({ dueDate, classTitle, title, done, classColor }) {
     return (
