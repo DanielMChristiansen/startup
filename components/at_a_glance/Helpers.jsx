@@ -15,7 +15,7 @@ async function getAssignments(calendar) {
         return {
             dueDate: assignment.getFirstPropertyValue("dtstart").toJSDate().toLocaleDateString(),
             classTitle: calendar.class,
-            title: assignment.getFirstPropertyValue("summary")
+            title: assignment.getFirstPropertyValue("summary"),
             id: assignment.getFirstPropertyValue("uid"),
         }
       });
@@ -32,7 +32,7 @@ async function getAssignments(calendar) {
         return {
             dueDate: assignment.getFirstPropertyValue("dtstart").toJSDate().toLocaleDateString(),
             classTitle: className,
-            title: assignmentTitle
+            title: assignmentTitle,
             id: assignment.getFirstPropertyValue("uid"),
         }
       });
