@@ -1,3 +1,4 @@
+import ICAL from 'ical.js';
 async function getAssignments(calendar) {
     const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(calendar.link)}`);
     const data = await response.json();
@@ -12,30 +13,38 @@ async function getAssignments(calendar) {
     const component = new ICAL.Component(jcalData);
     if (calendar.isLearningSuite) {
         let assignments = component.getAllSubcomponents("vevent").map(assignment => {
-        return {
-            dueDate: assignment.getFirstPropertyValue("dtstart").toJSDate().toLocaleDateString(),
-            classTitle: calendar.class,
-            title: assignment.getFirstPropertyValue("summary"),
-            id: assignment.getFirstPropertyValue("uid"),
-        }
-      });
+            return {
+                dueDate: assignment.getFirstPropertyValue("dtstart").toJSDate().toLocaleDateString(),
+                classTitle: calendar.class,
+                title: assignment.getFirstPropertyValue("summary"),
+                id: assignment.getFirstPropertyValue("uid"),
+            }
+        });
+        // Remove duplicate assignments
+        assignments = assignments.filter((assignment, index, self) =>
+            index === self.findIndex((a) => a.id === assignment.id)
+        );
       return assignments;
     } else {
         let assignments = component.getAllSubcomponents("vevent").map(assignment => {
-        // Take class name from assignment title
-        let assignmentTitle = assignment.getFirstPropertyValue("summary");
-        assignmentTitle = assignmentTitle.split("[");
-        let className = assignmentTitle.pop();
-        // Remove end bracket from class name
-        className = className.replace("]", "");
-        assignmentTitle = assignmentTitle.join(" ");
-        return {
-            dueDate: assignment.getFirstPropertyValue("dtstart").toJSDate().toLocaleDateString(),
-            classTitle: className,
-            title: assignmentTitle,
-            id: assignment.getFirstPropertyValue("uid"),
-        }
-      });
+            // Take class name from assignment title
+            let assignmentTitle = assignment.getFirstPropertyValue("summary");
+            assignmentTitle = assignmentTitle.split("[");
+            let className = assignmentTitle.pop();
+            // Remove end bracket from class name
+            className = className.replace("]", "");
+            assignmentTitle = assignmentTitle.join(" ");
+            return {
+                dueDate: assignment.getFirstPropertyValue("dtstart").toJSDate().toLocaleDateString(),
+                classTitle: className,
+                title: assignmentTitle,
+                id: assignment.getFirstPropertyValue("uid"),
+            }
+        });
+        // Remove duplicate assignments
+        assignments = assignments.filter((assignment, index, self) =>
+            index === self.findIndex((a) => a.id === assignment.id)
+        );
       return assignments
     }
   }
