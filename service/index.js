@@ -12,23 +12,27 @@ const passwords = {};
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
 
 app.use(express.static("public"));
 
 var apiRouter = express.Router();
 app.use("/api", apiRouter);
 
-apiRouter.get("/corsbypass", async (req, res) => {
+apiRouter.get("/corsbypass", cors(), (req, res) => {
   const targetUrl = req.query.url;
   if (!targetUrl) {
     return res.status(400).send("URL query parameter is required");
   }
 
-  let response = await fetch(targetUrl);
-  let data = await response.text();
-  res.set(response.headers);
-  res.send(data);
+  axios
+    .get(targetUrl)
+    .then((response) => {
+      // res.set(response.headers);
+      res.send(response.data);
+    })
+    .catch((error) => {
+      res.status(500).send("Error fetching the requested URL");
+    });
 });
 
 apiRouter.post("/register", async (req, res) => {
