@@ -4,12 +4,12 @@ import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
 import './headerandfooter.css'
 
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Login from './components/Login'
-import AtAGlance from './components/at_a_glance/AtAGlance'
-import Tutorial from './components/Tutorial'
-import Setup from './components/Setup'
+import Header from './src/Header'
+import Footer from './src/Footer'
+import Login from './src/Login'
+import AtAGlance from './src/at_a_glance/AtAGlance'
+import Tutorial from './src/Tutorial'
+import Setup from './src/Setup'
 
 function Demo() {
   const [bgColor, setBgColor] = React.useState('white');

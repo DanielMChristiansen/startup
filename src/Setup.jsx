@@ -40,7 +40,7 @@ async function getClassName(url) {
   if (url.includes("byu.instructure.com")) {
     return "Canvas";
   } else if (url.includes("learningsuite.byu.edu")) {
-    const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+    const response = await fetch(`${document.location.protocol}//${document.location.hostname}:${document.location.port}/api/corsbypass?url=l=${encodeURIComponent(url)}`);
     const data = await response.json();
     const jcalData = ICAL.parse(data.contents);
     const comp = new ICAL.Component(jcalData);
