@@ -74,15 +74,15 @@ function AtAGlance() {
     }
     loadAssignments(setAssignments).then(() => {
       setDoneLoading(true);
-      setAssignments(ASSIGNMENTS);
+      setAssignments(assignments);
+      setClasses(getClasses(ASSIGNMENTS));
     });
   }, [])
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setClasses(getClasses(ASSIGNMENTS));
-    }, 1000);
-  }, []);
+    let tempClasses = getClasses(assignments);
+    setClasses(classes.concat(tempClasses));
+  }, [assignments]);
 
   return (
     <main id="atAGlancePage">
