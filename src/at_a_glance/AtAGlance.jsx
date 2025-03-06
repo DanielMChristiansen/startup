@@ -9,9 +9,9 @@ let ASSIGNMENTS = [];
 let CLASS_COLORS = {};
 
 // React useEffect doesn't like async functions so we define an inner one
-async function loadAssignments() {
+async function loadAssignments(setAssignments) {
   JSON.parse(localStorage.calendars).forEach(async calendar => {
-    let calendarAssignments = await getAssignments(calendar);
+    let calendarAssignments = await getAssignments(calendar, setAssignments);
     let allAssignments = [...ASSIGNMENTS, ...calendarAssignments];
     allAssignments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
     ASSIGNMENTS = allAssignments;
@@ -56,6 +56,7 @@ function DueDatePopup({classTitle, assignment, dueIn}) {
 function AtAGlance() {
   const navigate = useNavigate();
   let [classes, setClasses] = React.useState([]);
+  let [assignments, setAssignments] = React.useState(ASSIGNMENTS);
   let [completedAssignments, setCompletedAssignments] = React.useState([]);
 
   let [doneLoading, setDoneLoading] = React.useState(false);
@@ -71,8 +72,9 @@ function AtAGlance() {
       navigate('/setup')
       return;
     }
-    loadAssignments().then(() => {
+    loadAssignments(setAssignments).then(() => {
       setDoneLoading(true);
+      setAssignments(ASSIGNMENTS);
     });
   }, [])
 

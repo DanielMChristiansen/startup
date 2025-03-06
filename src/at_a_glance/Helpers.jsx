@@ -1,7 +1,6 @@
 import ICAL from 'ical.js';
-async function getAssignments(calendar) {
-    
-    const response = await fetch(`${document.location.protocol}//${document.location.hostname}/api/corsbypass?url=${encodeURIComponent(calendar.link)}`);
+async function getAssignments(calendar, setAssignments) {
+    const response = await fetch(`${document.location.protocol}//${document.location.hostname}:3000/api/corsbypass?url=${encodeURIComponent(calendar.link)}`);
     const data = await response.text();
     
     // if (!calendar.isLearningSuite) { // data comes base64 encoded from canvas for some reason
@@ -25,6 +24,7 @@ async function getAssignments(calendar) {
         assignments = assignments.filter((assignment, index, self) =>
             index === self.findIndex((a) => a.id === assignment.id)
         );
+        setAssignments(assignments);
       return assignments;
     } else {
         let assignments = component.getAllSubcomponents("vevent").map(assignment => {
@@ -46,6 +46,7 @@ async function getAssignments(calendar) {
         assignments = assignments.filter((assignment, index, self) =>
             index === self.findIndex((a) => a.id === assignment.id)
         );
+        setAssignments(assignments);
       return assignments
     }
   }
