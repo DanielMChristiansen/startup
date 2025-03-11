@@ -84,13 +84,17 @@ apiRouter.delete("/logout", (req, res) => {
 
 // Middleware to verify that the user is authenticated
 const verifyAuth = async (req, res, next) => {
-  const user = await findUser("token", req.cookies[authCookieName]);
+  const user = users.find((user) => user.token === req.cookies.token);
   if (user) {
     next();
   } else {
     res.status(401).send({ msg: "Unauthorized" });
   }
 };
+
+apiRouter.get("/authenticated", verifyAuth, (req, res) => {
+  res.send({ authenticated: true });
+});
 
 apiRouter.put("/assignmentCompleted", verifyAuth, (req, res) => {
   console.log(users);
@@ -111,6 +115,30 @@ apiRouter.put("/assignmentCompleted", verifyAuth, (req, res) => {
 apiRouter.get("/completedAssignments", verifyAuth, (req, res) => {
   let user = users.find((user) => user.token === req.cookies.token);
   res.send({ completedAssignments: user.completedAssignments });
+});
+
+// Add calendar
+apiRouter.put("/calendars", verifyAuth, (req, res) => {
+  let user = users.find((user) => user.token === req.cookies.token);
+  if (!user.calendars.includes(req.body.calendar)) {
+    user.calendars.push(req.body.calendar);
+  }
+  res.send({ calendars: user.calendars });
+});
+
+// Get calendars
+apiRouter.get("/calendars", verifyAuth, (req, res) => {
+  let user = users.find((user) => user.token === req.cookies.token);
+  res.send({ calendars: user.calendars });
+});
+
+// Remove calendar
+apiRouter.delete("/calendars", verifyAuth, (req, res) => {
+  let user = users.find((user) => user.token === req.cookies.token);
+  user.calendars = user.calendars.filter(
+    (calendar) => calendar !== req.body.calendar
+  );
+  res.send({ calendars: user.calendars });
 });
 
 app.listen(port, () => {
