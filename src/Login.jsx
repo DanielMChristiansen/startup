@@ -22,7 +22,7 @@ function Login() {
       return;
     }
     // Will interact with the backend here
-    fetch("/api/login", {
+    fetch(method == "PUT" ? "/api/login" : "api/register", {
       method: method,
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +42,7 @@ function Login() {
     localStorage.setItem("authenticated", true);
     navigate("/setupPage");
   }
-  
+
   return (
     <main id="loginPage">
       <div className="shrinker">
