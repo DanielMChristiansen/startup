@@ -1,6 +1,6 @@
 import ICAL from 'ical.js';
 async function getAssignments(calendar, setAssignments) {
-    const response = await fetch(`${document.location.protocol}//${document.location.hostname}:3000/api/corsbypass?url=${encodeURIComponent(calendar.link)}`);
+    const response = await fetch(`/api/corsbypass?url=${encodeURIComponent(calendar.link)}`);
     const data = await response.text();
     
     // if (!calendar.isLearningSuite) { // data comes base64 encoded from canvas for some reason
