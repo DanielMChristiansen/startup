@@ -2,15 +2,7 @@ import React from 'react';
 import '../setup.css';
 import ICAL from 'ical.js';
 
-let CALENDARS;
-if (localStorage.getItem("calendars")) {
-  // Clean up Promise objects in storage
-  cleanCalendars();
-  CALENDARS = JSON.parse(localStorage.getItem("calendars"));
-} else {
-CALENDARS = [
-];
-}
+let CALENDARS = [];
 
 function cleanCalendars() {
   let calendars = JSON.parse(localStorage.getItem("calendars"));
@@ -28,11 +20,26 @@ function cleanCalendars() {
 
 function addCalendarsToDatabase() {
   // Implement when I have a database
-  localStorage.setItem("calendars", JSON.stringify(CALENDARS));
+  for (let calendar of CALENDARS) {
+    fetch('/api/calendars', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({calendar: calendar.link}),
+    });
+  }
 }
 
 function removeCalendarFromDatabase(calendar) {
   // Implement when I have a database
+  fetch('/api/calendars', {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({calendar: calendar.link}),
+  });
   localStorage.setItem("calendars", JSON.stringify(CALENDARS));
 }
 
@@ -40,7 +47,7 @@ async function getClassName(url) {
   if (url.includes("byu.instructure.com")) {
     return "Canvas";
   } else if (url.includes("learningsuite.byu.edu")) {
-    const response = await fetch(`${document.location.protocol}//${document.location.hostname}:${document.location.port}/api/corsbypass?url=l=${encodeURIComponent(url)}`);
+    const response = await fetch(`/api/corsbypass?url=${encodeURIComponent(url)}`);
     const data = await response.json();
     const jcalData = ICAL.parse(data.contents);
     const comp = new ICAL.Component(jcalData);
@@ -54,13 +61,16 @@ async function getClassName(url) {
 function Setup() {
   let [calendarState, setCalendarState] = React.useState(CALENDARS);
   React.useEffect(() => {
-    if (!localStorage.getItem('authenticated')) {
-      alert('You must be logged in to view this page.' + Math.random())
-      navigate('/')
-      return;
-    }
-    addCalendarsToDatabase();
-    cleanCalendars();
+    fetch('/api/authenticated').then(res => {
+      if (res.status === 401) {
+        navigate('/')
+      }
+    });
+    fetch('/api/calendars').then(res => res.json()).then(data => {
+      CALENDARS = data.calendars;
+      setCalendarState(data.calendars);
+    });
+    // cleanCalendars();
   }, [])
   
   function removeCalendar(index) {
