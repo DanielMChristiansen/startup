@@ -71,9 +71,15 @@ apiRouter.put("/login", async (req, res) => {
   }
 });
 
-apiRouter.put("/logout", (req, res) => {
-  res.clearCookie("user");
-  res.send({});
+apiRouter.delete("/logout", (req, res) => {
+  let user = users.find((user) => user.token === req.cookies.token);
+  if (!user) {
+    res.status(401).send("Unauthorized");
+    return;
+  }
+  delete user.token;
+  res.clearCookie("token");
+  res.status(204).end();
 });
 
 apiRouter.put("/assignmentCompleted", (req, res) => {
