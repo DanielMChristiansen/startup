@@ -21,15 +21,20 @@ function getRemainingWorkdays(date) {
 function Assignment({ dueDate, classTitle, title, id, done, classColor }) {
     let [checked, setChecked] = React.useState(done);
     function updateAssignment(event) {
-        // This is where we would interact with the backend to update the assignment
         fetch(`/api/assignmentCompleted`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ done: event.target.checked, completedAssignmentId: id }),
-        })
-        alert(event.target.checked);
+        }).then(response => {
+            if (response.status === 401) {
+                alert("Unauthorized");
+                // Uncheck the box
+                event.target.checked = !event.target.checked;
+            }
+        });
+        
         setChecked(event.target.checked);
     }
     return (
