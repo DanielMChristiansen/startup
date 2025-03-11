@@ -39,10 +39,6 @@ function Login() {
         alert("An error occurred");
       }
     });
-
-    localStorage.setItem("email", email);
-    localStorage.setItem("authenticated", true);
-    navigate("/setupPage");
   }
 
   return (
