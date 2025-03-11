@@ -82,13 +82,19 @@ apiRouter.delete("/logout", (req, res) => {
   res.status(204).end();
 });
 
-apiRouter.put("/assignmentCompleted", (req, res) => {
+// Middleware to verify that the user is authenticated
+const verifyAuth = async (req, res, next) => {
+  const user = await findUser("token", req.cookies[authCookieName]);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: "Unauthorized" });
+  }
+};
+
+apiRouter.put("/assignmentCompleted", verifyAuth, (req, res) => {
   console.log(users);
   let user = users.find((user) => user.token === req.cookies.token);
-  if (!user) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
   let id = req.body.completedAssignmentId;
   if (req.body.done) {
     if (!user.completedAssignments.includes(id)) {
@@ -102,15 +108,8 @@ apiRouter.put("/assignmentCompleted", (req, res) => {
   res.send({ completedAssignments: user.completedAssignments });
 });
 
-apiRouter.get("/completedAssignments", (req, res) => {
-  let user = users[req.cookies.user];
-  if (!user) {
-    res.status(401).send("Unauthorized");
-    return;
-  }
-  if (!user.completedAssignments) {
-    users[req.cookies.user].completedAssignments = [];
-  }
+apiRouter.get("/completedAssignments", verifyAuth, (req, res) => {
+  let user = users.find((user) => user.token === req.cookies.token);
   res.send({ completedAssignments: user.completedAssignments });
 });
 
