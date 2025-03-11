@@ -3,6 +3,7 @@ const axios = require("axios");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
+const uuid = require("uuid");
 
 const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 3000;
@@ -36,17 +37,34 @@ apiRouter.get("/corsbypass", cors(), (req, res) => {
 });
 
 apiRouter.post("/register", async (req, res) => {
+  if (passwords[req.body.email]) {
+    res.status(400).send("User already exists");
+    return;
+  }
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
-  passwords[req.body.email] = hashedPassword;
+  const newToken = uuid.v4();
+  users.push({
+    email: req.body.email,
+    password: hashedPassword,
+    token: newToken,
+    completedAssignments: [],
+    calendars: [],
+  });
+  res.cookie("token", newToken);
   res.send({ user: req.body.email });
 });
 
 apiRouter.put("/login", async (req, res) => {
-  const hashedPassword = passwords[req.body.email];
+  let user = users.find((user) => user.email === req.body.email);
+  // const hashedPassword = user.password;
   if (
-    hashedPassword &&
-    (await bcrypt.compare(req.body.password, hashedPassword))
+    user &&
+    user.password &&
+    (await bcrypt.compare(req.body.password, user.password))
   ) {
+    const newToken = uuid.v4();
+    user.token = newToken;
+    res.cookie("token", newToken);
     res.send({ user: req.body.email });
   } else {
     res.status(401).send("Invalid email or password");
@@ -59,13 +77,11 @@ apiRouter.put("/logout", (req, res) => {
 });
 
 apiRouter.put("/assignmentCompleted", (req, res) => {
-  let user = users[req.cookies.token];
+  console.log(users);
+  let user = users.find((user) => user.token === req.cookies.token);
   if (!user) {
     res.status(401).send("Unauthorized");
     return;
-  }
-  if (!user.completedAssignments) {
-    users[req.cookies.user].completedAssignments = [];
   }
   let id = req.body.completedAssignmentId;
   if (req.body.done) {
