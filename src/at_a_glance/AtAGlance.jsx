@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import ICAL from 'ical.js';
 import {Assignment, NextAssignment, HeaderClass} from './AssignmentComponents';
 import {getAssignments, getClasses} from './Helpers';
+import randomColor from 'randomcolor';
 
 let ASSIGNMENTS = [];
-let CLASS_COLORS = {};
 
 // React useEffect doesn't like async functions so we define an inner one
 async function loadAssignments(setAssignments) {
@@ -29,14 +29,11 @@ function getAssignmentColor(assignment) {
 }
 
 function getClassColor(className) {
-  if (CLASS_COLORS[className]) {
-    return CLASS_COLORS[className];
-  } else {
-    let color = `#${Math.floor(Math.random()*16777215).toString(16)}`;
-    CLASS_COLORS[className] = color;
-    return color;
-  }
-
+  return randomColor({
+    seed: className,  // Using the name as a seed ensures the same color each time
+    luminosity: 'bright',  // Optionally control brightness for more vibrant colors
+    format: 'hex'  // Color will be returned in hex format
+  });
 }
 
 function getNextAssignment(className) {
