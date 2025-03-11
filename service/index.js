@@ -53,6 +53,45 @@ apiRouter.put("/login", async (req, res) => {
   }
 });
 
+apiRouter.put("/logout", (req, res) => {
+  res.clearCookie("user");
+  res.send({});
+});
+
+apiRouter.put("/assignmentCompleted", (req, res) => {
+  let user = users[req.cookies.token];
+  if (!user) {
+    res.status(401).send("Unauthorized");
+    return;
+  }
+  if (!user.completedAssignments) {
+    users[req.cookies.user].completedAssignments = [];
+  }
+  let id = req.body.completedAssignmentId;
+  if (req.body.done) {
+    if (!user.completedAssignments.includes(id)) {
+      user.completedAssignments.push(id);
+    }
+  } else {
+    user.completedAssignments = users[
+      req.cookies.user
+    ].completedAssignments.filter((assignmentId) => assignmentId !== id);
+  }
+  res.send({ completedAssignments: user.completedAssignments });
+});
+
+apiRouter.get("/completedAssignments", (req, res) => {
+  let user = users[req.cookies.user];
+  if (!user) {
+    res.status(401).send("Unauthorized");
+    return;
+  }
+  if (!user.completedAssignments) {
+    users[req.cookies.user].completedAssignments = [];
+  }
+  res.send({ completedAssignments: user.completedAssignments });
+});
+
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });

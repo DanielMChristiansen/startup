@@ -40,7 +40,7 @@ function getClassColor(className) {
 }
 
 function getNextAssignment(className) {
-  let nextAssignment = ASSIGNMENTS.find(assignment => assignment.classTitle === className);
+  let nextAssignment = ASSIGNMENTS.find(assignment => assignment.classTitle === className && !assignment.done);
   return nextAssignment;
 }
 
@@ -105,7 +105,10 @@ function AtAGlance() {
                 {
                   classes.map((className, index) => {
                     let assignment = getNextAssignment(className);
-                    return <NextAssignment key={index} title={assignment.title} dueDate={assignment.dueDate} />
+                    if (assignment) {
+                      return <NextAssignment key={index} title={assignment.title} dueDate={assignment.dueDate} />
+                    }
+                    return <NextAssignment key={index} title="No uncompleted assignments" dueDate="N/A" />
                   })
                 }
               </tr>
