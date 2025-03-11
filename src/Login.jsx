@@ -29,12 +29,14 @@ function Login() {
       },
       body: JSON.stringify({ email: email, password: password }),
     }).then((response) => {
-      if (response.status === 401) {
+      if (response.status === 401 || response.status === 400) {
         alert("Invalid email or password");
-      } else {
+      } else if (response.status === 200) {
         localStorage.setItem("email", email);
         localStorage.setItem("authenticated", true);
         navigate("/setupPage");
+      } else {
+        alert("An error occurred");
       }
     });
 
