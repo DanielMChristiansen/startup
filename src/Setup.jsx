@@ -48,8 +48,8 @@ async function getClassName(url) {
     return "Canvas";
   } else if (url.includes("learningsuite.byu.edu")) {
     const response = await fetch(`/api/corsbypass?url=${encodeURIComponent(url)}`);
-    const data = await response.json();
-    const jcalData = ICAL.parse(data.contents);
+    const data = await response.text();
+    const jcalData = ICAL.parse(data);
     const comp = new ICAL.Component(jcalData);
     const name = comp.getFirstPropertyValue("x-wr-calname");
     return name;
@@ -64,12 +64,15 @@ function Setup() {
     fetch('/api/authenticated').then(res => {
       if (res.status === 401) {
         navigate('/')
+      } else {
+        // Only fetch calendars if the user is authenticated
+        fetch('/api/calendars').then(res => res.json()).then(data => {
+        CALENDARS = data.calendars;
+        setCalendarState(data.calendars);
+      });
       }
     });
-    fetch('/api/calendars').then(res => res.json()).then(data => {
-      CALENDARS = data.calendars;
-      setCalendarState(data.calendars);
-    });
+    
     // cleanCalendars();
   }, [])
   
