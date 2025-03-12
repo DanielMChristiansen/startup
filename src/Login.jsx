@@ -41,6 +41,12 @@ function Login() {
     });
   }
 
+  function logout() {
+    fetch("/api/logout", {
+      method: "DELETE",
+    })
+  }
+
   return (
     <main id="loginPage">
       <div className="shrinker">
@@ -50,6 +56,7 @@ function Login() {
           <button id="loginButton" onClick={() => tryLogin("PUT")}>Login</button>
           <button id="registerButton" onClick={() => tryLogin("POST")}>Register</button>
         </div>
+        <button onClick={logout}>Logout</button>
       </div>
     </main>
   )

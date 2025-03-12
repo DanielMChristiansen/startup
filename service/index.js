@@ -97,7 +97,6 @@ apiRouter.get("/authenticated", verifyAuth, (req, res) => {
 });
 
 apiRouter.put("/assignmentCompleted", verifyAuth, (req, res) => {
-  console.log(users);
   let user = users.find((user) => user.token === req.cookies.token);
   let id = req.body.completedAssignmentId;
   if (req.body.done) {

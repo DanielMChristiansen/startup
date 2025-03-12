@@ -110,11 +110,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **Node.js/Express HTTP service** - I did not complete this part of the deliverable.
-- [ ] **Static middleware for frontend** - I did not complete this part of the deliverable.
-- [ ] **Calls to third party endpoints** - I did not complete this part of the deliverable.
-- [ ] **Backend service endpoints** - I did not complete this part of the deliverable.
-- [ ] **Frontend calls service endpoints** - I did not complete this part of the deliverable.
+- [x] **Node.js/Express HTTP service** - I completed this part of the deliverable.
+- [x] **Static middleware for frontend** - React frontend is in fact served statically.
+- [x] **Calls to third party endpoints** - Requests are made to Canvas and LearningSuite to fetch assignments.
+- [x] **Backend service endpoints** - I have implemented register, login, fetching and updating of calendar links, fetching and updating of completed assignments, and logout.
+- [x] **Frontend calls service endpoints** - The login page calls the register, login, and logout endpoints. The At a Glance page fetches calendar links and both fetches and updates completed assignments. The Setup page gets and updates the calendar links.
 
 ## 🚀 DB/Login deliverable
 
