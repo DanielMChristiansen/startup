@@ -33,7 +33,12 @@ function Assignment({ dueDate, classTitle, title, id, done, classColor }) {
                 // Uncheck the box
                 event.target.checked = !event.target.checked;
             }
-        });
+        }).catch(err => {
+            alert("Error updating assignment");
+            // Uncheck the box
+            event.target.checked = !event.target.checked;
+        }
+        );
         
         setChecked(event.target.checked);
     }

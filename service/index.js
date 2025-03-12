@@ -105,9 +105,9 @@ apiRouter.put("/assignmentCompleted", verifyAuth, (req, res) => {
       user.completedAssignments.push(id);
     }
   } else {
-    user.completedAssignments = users[
-      req.cookies.user
-    ].completedAssignments.filter((assignmentId) => assignmentId !== id);
+    user.completedAssignments = user.completedAssignments.filter(
+      (assignmentId) => assignmentId !== id
+    );
   }
   res.send({ completedAssignments: user.completedAssignments });
 });
@@ -120,7 +120,6 @@ apiRouter.get("/completedAssignments", verifyAuth, (req, res) => {
 // Add calendar
 apiRouter.put("/calendars", verifyAuth, (req, res) => {
   let user = users.find((user) => user.token === req.cookies.token);
-  console.log(req.body.calendar);
   if (!user.calendars.includes(req.body.calendar)) {
     user.calendars.push(req.body.calendar);
   }

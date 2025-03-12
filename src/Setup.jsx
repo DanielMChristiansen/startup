@@ -2,6 +2,7 @@ import React from 'react';
 import '../setup.css';
 import ICAL from 'ical.js';
 import { useNavigate } from 'react-router-dom';
+import { getClassName } from './at_a_glance/Helpers';
 
 let CALENDARS = [];
 
@@ -42,21 +43,6 @@ function removeCalendarFromDatabase(calendar) {
     body: JSON.stringify({calendar: calendar.link}),
   });
   // localStorage.setItem("calendars", JSON.stringify(CALENDARS));
-}
-
-async function getClassName(url) {
-  if (url.includes("byu.instructure.com")) {
-    return "Canvas";
-  } else if (url.includes("learningsuite.byu.edu")) {
-    const response = await fetch(`/api/corsbypass?url=${encodeURIComponent(url)}`);
-    const data = await response.text();
-    const jcalData = ICAL.parse(data);
-    const comp = new ICAL.Component(jcalData);
-    const name = comp.getFirstPropertyValue("x-wr-calname");
-    return name;
-  } else {
-    return "Unknown Class";
-  }
 }
 
 function Setup() {

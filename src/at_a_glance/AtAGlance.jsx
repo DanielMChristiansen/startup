@@ -3,14 +3,21 @@ import '../../ataglance.css';
 import { useNavigate } from "react-router-dom";
 import ICAL from 'ical.js';
 import {Assignment, NextAssignment, HeaderClass} from './AssignmentComponents';
-import {getAssignments, getClasses} from './Helpers';
+import {getAssignments, getClasses, getClassName} from './Helpers';
 import randomColor from 'randomcolor';
 
 let ASSIGNMENTS = [];
 
 // React useEffect doesn't like async functions so we define an inner one
 async function loadAssignments(setAssignments) {
-  JSON.parse(localStorage.calendars).forEach(async calendar => {
+  let response = await fetch('/api/calendars');
+  let calendars = await response.json();
+  calendars.calendars.forEach(async calendarLink => {
+    let calendar = {
+      link: calendarLink,
+      class: await getClassName(calendarLink),
+      isLearningSuite: calendarLink.includes("learningsuite.byu.edu"),
+    }
     let calendarAssignments = await getAssignments(calendar, setAssignments);
     let allAssignments = [...ASSIGNMENTS, ...calendarAssignments];
     allAssignments.sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
@@ -36,8 +43,10 @@ function getClassColor(className) {
   });
 }
 
-function getNextAssignment(className) {
-  let nextAssignment = ASSIGNMENTS.find(assignment => assignment.classTitle === className && !assignment.done);
+function getNextAssignment(className, completedAssignments) {
+  let nextAssignment = ASSIGNMENTS.find(assignment => {
+    return assignment.classTitle === className && !completedAssignments.includes(assignment.id);
+  });
   return nextAssignment;
 }
 
@@ -58,21 +67,20 @@ function AtAGlance() {
 
   let [doneLoading, setDoneLoading] = React.useState(false);
   React.useEffect(() => {
-    if (!localStorage.getItem('authenticated')) {
-      alert('You must be logged in to view this page.')
-      navigate('/')
-      return;
-    }
-    
-    if (JSON.parse(localStorage.calendars).length === 0) {
-      alert('You must add calendars to view this page.')
-      navigate('/setup')
-      return;
-    }
-    loadAssignments(setAssignments).then(() => {
-      setDoneLoading(true);
-      setAssignments(assignments);
-      setClasses(getClasses(ASSIGNMENTS));
+    fetch('/api/authenticated').then(res => {
+      if (res.status === 401) {
+        navigate('/')
+      } else if (res.ok) {
+          loadAssignments(setAssignments).then(() => {
+            ASSIGNMENTS = []
+            setDoneLoading(true);
+            setAssignments(assignments);
+            setClasses(getClasses(ASSIGNMENTS));
+            fetch('/api/completedAssignments').then(res => res.json()).then(data => {
+              setCompletedAssignments(data.completedAssignments);
+            });
+        });
+      }
     });
   }, [])
 
@@ -101,7 +109,7 @@ function AtAGlance() {
                 <td className="biggerText">Next Assignment:</td>
                 {
                   classes.map((className, index) => {
-                    let assignment = getNextAssignment(className);
+                    let assignment = getNextAssignment(className, completedAssignments);
                     if (assignment) {
                       return <NextAssignment key={index} title={assignment.title} dueDate={assignment.dueDate} />
                     }
@@ -134,7 +142,7 @@ function AtAGlance() {
             <tbody>
               {
                 ASSIGNMENTS.map((assignment, index) => (
-                  <Assignment key={index} dueDate={assignment.dueDate} classTitle={assignment.classTitle} title={assignment.title} id={assignment.id} done={false} classColor={getAssignmentColor(assignment)} />
+                  !completedAssignments.includes(assignment.id) ? <Assignment key={index} dueDate={assignment.dueDate} classTitle={assignment.classTitle} title={assignment.title} id={assignment.id} done={completedAssignments.includes(assignment.id)} classColor={getAssignmentColor(assignment)} /> : null
                 ))
               }
             </tbody>

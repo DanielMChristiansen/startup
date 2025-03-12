@@ -61,4 +61,19 @@ async function getAssignments(calendar, setAssignments) {
     return classes;
 }
 
-export { getAssignments, getClasses };
+async function getClassName(url) {
+    if (url.includes("byu.instructure.com")) {
+      return "Canvas";
+    } else if (url.includes("learningsuite.byu.edu")) {
+      const response = await fetch(`/api/corsbypass?url=${encodeURIComponent(url)}`);
+      const data = await response.text();
+      const jcalData = ICAL.parse(data);
+      const comp = new ICAL.Component(jcalData);
+      const name = comp.getFirstPropertyValue("x-wr-calname");
+      return name;
+    } else {
+      return "Unknown Class";
+    }
+  }
+
+export { getAssignments, getClasses, getClassName };
