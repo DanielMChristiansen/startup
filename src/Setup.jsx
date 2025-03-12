@@ -1,6 +1,7 @@
 import React from 'react';
 import '../setup.css';
 import ICAL from 'ical.js';
+import { useNavigate } from 'react-router-dom';
 
 let CALENDARS = [];
 
@@ -40,7 +41,7 @@ function removeCalendarFromDatabase(calendar) {
     },
     body: JSON.stringify({calendar: calendar.link}),
   });
-  localStorage.setItem("calendars", JSON.stringify(CALENDARS));
+  // localStorage.setItem("calendars", JSON.stringify(CALENDARS));
 }
 
 async function getClassName(url) {
@@ -60,6 +61,7 @@ async function getClassName(url) {
 
 function Setup() {
   let [calendarState, setCalendarState] = React.useState(CALENDARS);
+  let navigate = useNavigate();
   React.useEffect(() => {
     fetch('/api/authenticated').then(res => {
       if (res.status === 401) {
@@ -67,19 +69,29 @@ function Setup() {
       } else {
         // Only fetch calendars if the user is authenticated
         fetch('/api/calendars').then(res => res.json()).then(data => {
-        CALENDARS = data.calendars;
-        setCalendarState(data.calendars);
+          CALENDARS = [];
+          for (let calendarLink of data.calendars) {
+            CALENDARS.push({
+              class: getClassName(calendarLink),
+              link: calendarLink,
+              isLearningSuite: calendarLink.includes("learningsuite.byu.edu")
+            });
+          }
+          setCalendarState(CALENDARS);
       });
       }
+    }).catch(err => {
+      navigate('/')
     });
     
     // cleanCalendars();
   }, [])
   
   function removeCalendar(index) {
+    let calendarToRemove = calendarState[index];
     setCalendarState(calendarState.filter((calendar, i) => i !== index));
     CALENDARS = calendarState.filter((calendar, i) => i !== index);
-    removeCalendarFromDatabase();
+    removeCalendarFromDatabase(calendarToRemove);
   }
 
   async function addCalendar() {

@@ -120,6 +120,7 @@ apiRouter.get("/completedAssignments", verifyAuth, (req, res) => {
 // Add calendar
 apiRouter.put("/calendars", verifyAuth, (req, res) => {
   let user = users.find((user) => user.token === req.cookies.token);
+  console.log(req.body.calendar);
   if (!user.calendars.includes(req.body.calendar)) {
     user.calendars.push(req.body.calendar);
   }
