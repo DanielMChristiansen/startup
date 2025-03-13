@@ -120,11 +120,11 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 For this deliverable I did the following. I checked the box `[x]` and added a description for things I completed.
 
-- [ ] **User registration** - I did not complete this part of the deliverable.
-- [ ] **User login and logout** - I did not complete this part of the deliverable.
-- [ ] **Stores data in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Stores credentials in MongoDB** - I did not complete this part of the deliverable.
-- [ ] **Restricts functionality based on authentication** - I did not complete this part of the deliverable.
+- [x] **User registration** - This is implemented in index.js
+- [x] **User login and logout** - This is implemented in index.js
+- [x] **Stores data in MongoDB** - This is implemented in index.js and database.js
+- [x] **Stores credentials in MongoDB** - This is implemented in index.js
+- [x] **Restricts functionality based on authentication** - This is implemented in index.js
 
 ## 🚀 WebSocket deliverable
 
