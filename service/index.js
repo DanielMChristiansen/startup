@@ -62,15 +62,6 @@ apiRouter.put("/login", async (req, res) => {
   }
 });
 
-apiRouter.delete("/logout", verifyAuth, async (req, res) => {
-  let user = await findUser("token", req.cookies.token);
-
-  delete user.token;
-  await DB.updateUser(user);
-  res.clearCookie("token");
-  res.status(204).end();
-});
-
 // Middleware to verify that the user is authenticated
 const verifyAuth = async (req, res, next) => {
   const user = await findUser("token", req.cookies.token);
@@ -80,6 +71,15 @@ const verifyAuth = async (req, res, next) => {
     res.status(401).send({ msg: "Unauthorized" });
   }
 };
+
+apiRouter.delete("/logout", verifyAuth, async (req, res) => {
+  let user = await findUser("token", req.cookies.token);
+
+  delete user.token;
+  await DB.updateUser(user);
+  res.clearCookie("token");
+  res.status(204).end();
+});
 
 apiRouter.get("/authenticated", verifyAuth, (req, res) => {
   res.send({ authenticated: true });
