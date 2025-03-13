@@ -2,6 +2,8 @@ import React from 'react';
 import '../../ataglance.css';
 
 function getRemainingWorkdays(date) {
+    // Set time to 11:59 PM
+    date.setHours(23, 59, 0);
     let today = new Date();
     let remainingWorkdays = 0;
     if (date < today) {
