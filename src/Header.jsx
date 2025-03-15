@@ -26,7 +26,7 @@ function Header( {currentAuthState, setCurrentAuthState} ) {
                   <li>{
                     (currentAuthState !== AuthState.Authenticated) 
                     ? (<NavLink className={location.pathname === '/' ? "currPage" : ""} to="/">Login</NavLink>)
-                    : (<button onClick={logout}>Logout</button>)
+                    : (<NavLink onClick={logout} to="/">Logout</NavLink>)
                     }
                   </li>
                   {currentAuthState === AuthState.Authenticated && (<li><NavLink className={location.pathname === '/ataglancePage' ? "currPage" : ""} to="/ataglancePage">At a Glance</NavLink></li>)}
