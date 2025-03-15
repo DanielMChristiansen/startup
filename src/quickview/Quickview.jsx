@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../ataglance.css';
+import '../../quickview.css';
 import { useNavigate } from "react-router-dom";
 import ICAL from 'ical.js';
 import {Assignment, NextAssignment, HeaderClass} from './AssignmentComponents';
@@ -59,7 +59,7 @@ function DueDatePopup({classTitle, assignment, dueIn}) {
   </div>
 }
 
-function AtAGlance() {
+function Quickview() {
   const navigate = useNavigate();
   let [classes, setClasses] = React.useState([]);
   let [assignments, setAssignments] = React.useState(ASSIGNMENTS);
@@ -90,7 +90,7 @@ function AtAGlance() {
   }, [assignments]);
 
   return (
-    <main id="atAGlancePage">
+    <main id="quickviewPage">
       {doneLoading ? <p>{ASSIGNMENTS.length}</p> : <p>Loading...</p>}
         <br />
         <table id="classesTable">
@@ -153,4 +153,4 @@ function AtAGlance() {
   )
 }
 
-export default AtAGlance;
+export default Quickview;

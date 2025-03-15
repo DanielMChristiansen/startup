@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../ataglance.css';
+import '../../quickview.css';
 
 function getRemainingWorkdays(date) {
     // Set time to 11:59 PM

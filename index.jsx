@@ -9,7 +9,7 @@ import './headerandfooter.css'
 import Header from './src/Header'
 import Footer from './src/Footer'
 import Login from './src/Login'
-import AtAGlance from './src/at_a_glance/AtAGlance'
+import Quickview from './src/quickview/Quickview'
 import Tutorial from './src/Tutorial'
 import Setup from './src/Setup'
 
@@ -43,7 +43,7 @@ function App() {
             <Route path="/" element={<Login 
               currentAuthState={currentAuthState}
               setCurrentAuthState={setCurrentAuthState} />} />
-            <Route path="/ataglancePage" element={<AtAGlance />} />
+            <Route path="/quickviewPage" element={<Quickview />} />
             <Route path="/setupPage" element={<Setup />} />
             <Route path="/tutorialPage" element={<Tutorial />} />
             <Route path="/demo" element={<Demo />} />

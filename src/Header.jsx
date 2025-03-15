@@ -29,7 +29,7 @@ function Header( {currentAuthState, setCurrentAuthState} ) {
                     : (<NavLink onClick={logout} to="/">Logout</NavLink>)
                     }
                   </li>
-                  {currentAuthState === AuthState.Authenticated && (<li><NavLink className={location.pathname === '/ataglancePage' ? "currPage" : ""} to="/ataglancePage">At a Glance</NavLink></li>)}
+                  {currentAuthState === AuthState.Authenticated && (<li><NavLink className={location.pathname === '/quickviewPage' ? "currPage" : ""} to="/quickviewPage">Quickview</NavLink></li>)}
                   {currentAuthState === AuthState.Authenticated && (<li><NavLink className={location.pathname === '/setupPage' ? "currPage" : ""} to="/setupPage">Setup</NavLink></li>)}
                   {currentAuthState === AuthState.Authenticated && (<li><NavLink className={location.pathname === '/tutorialPage' ? "currPage" : ""} to="/tutorialPage">Tutorial</NavLink></li>)}
               </menu>

@@ -2,7 +2,7 @@ import React from 'react';
 import '../setup.css';
 import ICAL from 'ical.js';
 import { useNavigate } from 'react-router-dom';
-import { getClassName } from './at_a_glance/Helpers';
+import { getClassName } from './quickview/Helpers';
 
 let CALENDARS = [];
 
