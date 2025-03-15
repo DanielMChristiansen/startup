@@ -28,7 +28,11 @@ function getUserByToken(token) {
 }
 
 async function addUser(user) {
-  await userCollection.insertOne(user);
+  await userCollection.updateOne(
+    { email: user.email }, // or whatever unique identifier you're using
+    { $set: user },
+    { upsert: true }
+  );
 }
 
 async function updateUser(user) {
