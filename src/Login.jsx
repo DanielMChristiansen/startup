@@ -1,8 +1,9 @@
 import React from "react";
 import '../login.css'
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AuthState } from "./authState";
 
-function Login() {
+function Login({currentAuthState, setCurrentAuthState}) {
   const navigate = useNavigate();
 
   function validateEmail(email) {
@@ -34,17 +35,12 @@ function Login() {
       } else if (response.status === 200) {
         localStorage.setItem("email", email);
         localStorage.setItem("authenticated", true);
+        setCurrentAuthState(AuthState.Authenticated);
         navigate("/setupPage");
       } else {
         alert("An error occurred");
       }
     });
-  }
-
-  function logout() {
-    fetch("/api/logout", {
-      method: "DELETE",
-    })
   }
 
   return (
@@ -56,7 +52,6 @@ function Login() {
           <button id="loginButton" onClick={() => tryLogin("PUT")}>Login</button>
           <button id="registerButton" onClick={() => tryLogin("POST")}>Register</button>
         </div>
-        <button onClick={logout}>Logout</button>
       </div>
     </main>
   )

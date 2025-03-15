@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 
+import { AuthState } from './src/authState';
+
 import './headerandfooter.css'
 
 import Header from './src/Header'
@@ -30,11 +32,17 @@ function Demo() {
 }
 
 function App() {
+  let [currentAuthState, setCurrentAuthState] = React.useState(AuthState.Unknown);
   return (
       <BrowserRouter>
-        <Header />
+        <Header 
+          currentAuthState={currentAuthState}
+          setCurrentAuthState={setCurrentAuthState}
+        />
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Login 
+              currentAuthState={currentAuthState}
+              setCurrentAuthState={setCurrentAuthState} />} />
             <Route path="/ataglancePage" element={<AtAGlance />} />
             <Route path="/setupPage" element={<Setup />} />
             <Route path="/tutorialPage" element={<Tutorial />} />
