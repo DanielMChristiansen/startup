@@ -125,8 +125,6 @@ function Quickview() {
             </tbody>
         </table>
         <br />
-        <span className="sameLine biggerText">Assignments:<button id="addAssignmentButton" className="biggerText">+ ADD</button></span> 
-        <br />
         <table id="assignmentsTable" className="biggerText">
             <thead>
               <tr>
