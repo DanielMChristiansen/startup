@@ -97,7 +97,6 @@ function Quickview() {
 
   return (
     <main id="quickviewPage">
-      {doneLoading ? <p>{ASSIGNMENTS.length}</p> : <p>Loading...</p>}
         <br />
         <table id="classesTable">
             <thead className="biggerText">
