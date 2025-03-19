@@ -40,7 +40,7 @@ apiRouter.post("/register", async (req, res) => {
     return;
   }
   if (await findUser("email", req.body.email)) {
-    res.status(400).send("User already exists");
+    res.status(409).send("User already exists");
     return;
   }
   const hashedPassword = await bcrypt.hash(req.body.password, 10);

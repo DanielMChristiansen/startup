@@ -32,6 +32,8 @@ function Login({currentAuthState, setCurrentAuthState}) {
     }).then((response) => {
       if (response.status === 401 || response.status === 400) {
         alert("Invalid email or password");
+      } else if (response.status === 409) {
+        alert("User already exists");
       } else if (response.status === 200) {
         localStorage.setItem("email", email);
         localStorage.setItem("authenticated", true);
@@ -55,6 +57,8 @@ function Login({currentAuthState, setCurrentAuthState}) {
           <button id="registerButton" onClick={() => tryLogin("POST")}>Register</button>
         </div>
       </div>
+      <br />
+      <br />
     </main>
   )
 }  
