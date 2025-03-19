@@ -20,16 +20,20 @@ function cleanCalendars() {
   localStorage.setItem("calendars", JSON.stringify(calendars));
 }
 
-function addCalendarsToDatabase() {
+async function addCalendarsToDatabase() {
   // Implement when I have a database
   for (let calendar of CALENDARS) {
-    fetch('/api/calendars', {
+    const response = fetch('/api/calendars', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({calendar: calendar.link}),
     });
+    if (response.status === 401) {
+      alert("You are not authenticated. Please log in again.");
+      break;
+    }
   }
 }
 
@@ -41,6 +45,10 @@ function removeCalendarFromDatabase(calendar) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({calendar: calendar.link}),
+  }).then(res => {
+    if (res.status === 401) {
+      alert("You are not authenticated. Please log in again.");
+    }
   });
   // localStorage.setItem("calendars", JSON.stringify(CALENDARS));
 }
@@ -51,6 +59,7 @@ function Setup() {
   React.useEffect(() => {
     fetch('/api/authenticated').then(res => {
       if (res.status === 401) {
+        alert("You are not authenticated. Please log in again.");
         navigate('/')
       } else {
         // Only fetch calendars if the user is authenticated
@@ -67,6 +76,7 @@ function Setup() {
       });
       }
     }).catch(err => {
+      alert("Can't connect to server. Please try again later.");
       navigate('/')
     });
     
@@ -99,7 +109,7 @@ function Setup() {
       }
     }
     
-    addCalendarsToDatabase();
+    await addCalendarsToDatabase();
   }
   return (
     <main id="setupPage">

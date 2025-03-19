@@ -11,6 +11,11 @@ let ASSIGNMENTS = [];
 // React useEffect doesn't like async functions so we define an inner one
 async function loadAssignments(setAssignments) {
   let response = await fetch('/api/calendars');
+  if (response.status === 401) {
+    alert("You are not authenticated. Please log in again.");
+    navigate('/');
+    return;
+  }
   let calendars = await response.json();
   calendars.calendars.forEach(async calendarLink => {
     let calendar = {
@@ -69,6 +74,7 @@ function Quickview() {
   React.useEffect(() => {
     fetch('/api/authenticated').then(res => {
       if (res.status === 401) {
+        alert("You are not authenticated. Please log in again.");
         navigate('/')
       } else if (res.ok) {
           loadAssignments(setAssignments).then(() => {

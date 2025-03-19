@@ -40,6 +40,8 @@ function Login({currentAuthState, setCurrentAuthState}) {
       } else {
         alert("An error occurred");
       }
+    }).catch((error) => {
+      alert("Failed to reach server!");
     });
   }
 

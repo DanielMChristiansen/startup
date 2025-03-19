@@ -8,7 +8,13 @@ function Header( {currentAuthState, setCurrentAuthState} ) {
     React.useEffect(() => {
         fetch('/api/authenticated')
             .then(response => {
-                setCurrentAuthState(response.ok ? AuthState.Authenticated : AuthState.Unauthenticated);
+                if (response.status === 401) {
+                    setCurrentAuthState(AuthState.Unauthenticated);
+                } else {
+                    setCurrentAuthState(AuthState.Authenticated);
+                }
+            }).catch(() => {
+                alert("Failed to reach server");
             });
     }, []);
     function logout() {
