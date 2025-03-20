@@ -29,7 +29,7 @@ test("register existing user", async () => {
     .post("/api/register")
     .send({ email, password });
 
-  expect(register.status).toBe(400);
+  expect(register.status).toBe(409);
 });
 
 test("register missing email", async () => {
