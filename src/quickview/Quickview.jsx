@@ -96,7 +96,7 @@ function Quickview() {
   }, [assignments]);
 
   React.useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
     const socket = new WebSocket(`${protocol}://${window.location.hostname}:${window.location.port}/ws`);
 
     socket.onmessage = (event) => {
