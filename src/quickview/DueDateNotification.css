@@ -24,7 +24,14 @@
     cursor: pointer;
     color: gray;
 }
+.due-date-notification ul {
+    /* padding: 0; */
+    text-align: left;
+}
 
+.due-date-notification li {
+    margin-bottom: 10px;
+}
 .dismiss-button:hover {
     color: black;
 }

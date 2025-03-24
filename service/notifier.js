@@ -17,14 +17,12 @@ function notifier(httpServer) {
       id: uuid.v4(),
       alive: true,
       ws: ws,
-      todaysAssignmentsCompleted: false,
     };
     connections.push(connection);
 
     ws.on("message", function message(data) {
       console.log("Received message: ", data);
       if (data === "All assignments completed") {
-        connection.todaysAssignmentsCompleted = true;
       }
     });
 
@@ -57,23 +55,13 @@ function notifier(httpServer) {
   }, 10000);
 
   // Check for upcoming assignments
-  let hasDayPassed = false;
   setInterval(() => {
     const now = new Date();
-    if (now.getHours() <= 2 && !hasDayPassed) {
-      hasDayPassed = true;
-    }
     for (let connection of connections) {
-      if (hasDayPassed) {
-        connection.ws.send("Day has passed");
-        connection.todaysAssignmentsCompleted = false;
-      } else {
-        if (now.getHours() > 20) {
-          connection.ws.send("Assignment may be due soon");
-        }
+      if (now.getHours() > 20) {
+        connection.ws.send("Assignment may be due soon");
       }
     }
-    hasDayPassed = false;
   }, 1000 * 60 * 60);
 }
 
