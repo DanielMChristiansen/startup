@@ -174,10 +174,8 @@ app.use((err, req, res, next) => {
 });
 
 // Return the application's default page if the path is unknown
-const httpService = app.use((_req, res) => {
+app.use((_req, res) => {
   res.sendFile("index.html", { root: "public" });
 });
-
-notifier(httpService);
 
 module.exports = app;

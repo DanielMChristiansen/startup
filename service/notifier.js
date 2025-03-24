@@ -20,12 +20,6 @@ function notifier(httpServer) {
     };
     connections.push(connection);
 
-    ws.on("message", function message(data) {
-      console.log("Received message: ", data);
-      if (data === "All assignments completed") {
-      }
-    });
-
     // Remove the closed connection so we don't try to forward anymore
     ws.on("close", () => {
       const pos = connections.findIndex((o, i) => o.id === connection.id);

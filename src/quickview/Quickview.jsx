@@ -70,7 +70,7 @@ function Quickview() {
   let [classes, setClasses] = React.useState([]);
   let [assignments, setAssignments] = React.useState(ASSIGNMENTS);
   let [completedAssignments, setCompletedAssignments] = React.useState([]);
-  let [assignmentDueSoon, setAssignmentDueSoon] = React.useState(true);
+  let [assignmentDueSoon, setAssignmentDueSoon] = React.useState(false);
   
   React.useEffect(() => {
     fetch('/api/authenticated').then(res => {
@@ -96,8 +96,9 @@ function Quickview() {
   }, [assignments]);
 
   React.useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-    const socket = new WebSocket(`${protocol}://${window.location.hostname}:${window.location.port}/ws`);
+    let port = window.location.port;
+    const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
+    let socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
 
     socket.onmessage = (event) => {
       const message = event.data;
