@@ -5,6 +5,7 @@ import ICAL from 'ical.js';
 import {Assignment, NextAssignment, HeaderClass} from './AssignmentComponents';
 import {getAssignments, getClasses, getClassName} from './Helpers';
 import randomColor from 'randomcolor';
+import DueDateNotification from './DueDateNotification';
 
 let ASSIGNMENTS = [];
 
@@ -151,7 +152,7 @@ function Quickview() {
             </tbody>
         </table>
         <br />
-        <DueDatePopup classTitle="MATH 113" assignment="Online 6.1" dueIn="3 hrs, 25 min, 50 seconds" />        
+        <DueDateNotification assignmentName="Online 6.1" onDismiss={() => {}} /> 
     </main>
   )
 }
