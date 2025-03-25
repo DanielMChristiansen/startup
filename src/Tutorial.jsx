@@ -24,6 +24,7 @@ function Tutorial() {
           <h3>Step 4: Copy link</h3>
           <img src="tutorial/Learning_suite_step_4.png" />
         </div>
+        <p>Page icon designed by Freepik from Flaticon</p>
       </main>
     )
 }

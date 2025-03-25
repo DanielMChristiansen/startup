@@ -87,3 +87,8 @@ menu > li > a:hover, a.currPage {
 hr {
     margin: 0;
 }
+
+header img {
+    width: 3vw;
+    padding-right: 1vw;
+}

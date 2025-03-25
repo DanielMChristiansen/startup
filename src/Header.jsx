@@ -27,7 +27,8 @@ function Header( {currentAuthState, setCurrentAuthState} ) {
     return (
       <header>
           <nav>
-              <a href="#">Schedulify</a>
+            
+              <a href="#"><img src="calendar.png" alt="" />Schedulify</a>
               <menu>
                   <li>{
                     (currentAuthState !== AuthState.Authenticated) 
