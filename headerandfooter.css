@@ -68,12 +68,12 @@ menu li {
 }
 
 nav > a {
-    font-size: 5vw;
+    font-size: 4vw;
     color: white;
 }
 
 menu > li > a {
-    font-size: 3vw;
+    font-size: 2.75vw;
     color: rgb(115, 115, 115);
     padding-left: 2vw;
 }
