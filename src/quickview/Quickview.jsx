@@ -103,8 +103,10 @@ function Quickview() {
     socket.onmessage = (event) => {
       const message = event.data;
       if (message === 'Assignment may be due soon') {
-        if (ASSIGNMENTS.find(element => isIncompleteAndDueTonight(element))) { // No need to show an empty notification
-          setAssignmentDueSoon(true);
+        if (9 < (new Date()).getHours() && (new Date()).getHours() < 24) { // Only show the notification if it's before midnight
+          if (ASSIGNMENTS.find(element => isIncompleteAndDueTonight(element))) { // No need to show an empty notification
+            setAssignmentDueSoon(true);
+          }
         }
       }
     };

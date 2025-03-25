@@ -52,9 +52,7 @@ function notifier(httpServer) {
   setInterval(() => {
     const now = new Date();
     for (let connection of connections) {
-      if (now.getHours() > 20) {
-        connection.ws.send("Assignment may be due soon");
-      }
+      connection.ws.send("Assignment may be due soon");
     }
   }, 1000 * 60 * 60);
 }
