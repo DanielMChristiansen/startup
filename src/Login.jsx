@@ -38,7 +38,13 @@ function Login({currentAuthState, setCurrentAuthState}) {
         localStorage.setItem("email", email);
         localStorage.setItem("authenticated", true);
         setCurrentAuthState(AuthState.Authenticated);
-        navigate("/setupPage");
+        fetch("/api/calendars").then((response) => response.json()).then((data) => {
+          if (data.calendars.length === 0) {
+            navigate("/setupPage");
+          } else {
+            navigate("/quickviewPage");
+          }
+        });
       } else {
         alert("An error occurred");
       }

@@ -1,7 +1,7 @@
 {
   "short_name": "Schedulify",
   "name": "Schedulify",
-  "start_url": ".",
+  "start_url": "./quickviewPage",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
