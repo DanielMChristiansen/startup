@@ -13,7 +13,7 @@ body {
 
 header {
     background-color: rgb(30, 29, 29);
-    flex: 0 10vh;
+    flex: 0 0 auto;
     width: 96vw;
     margin-left: auto;
     margin-right: auto;
@@ -21,6 +21,10 @@ header {
     padding-right: 2vw;
     display: flex;
     justify-content: center;
+    
+    height: auto;
+    padding-top: 1vh;
+    padding-bottom: 1vh;
 }
 
 main {
