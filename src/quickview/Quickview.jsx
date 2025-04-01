@@ -104,7 +104,7 @@ function Quickview() {
       const message = event.data;
       console.log(`Message received: ${message}`);
       if (message === 'Assignment may be due soon') {
-        if (9 < (new Date()).getHours() && (new Date()).getHours() < 24) { // Only show the notification if it's before midnight
+        if (21 < (new Date()).getHours() && (new Date()).getHours() < 24) { // Only show the notification if it's before midnight
           if (ASSIGNMENTS.filter(assignment => isIncompleteAndDueTonight(assignment)).length > 0) { // No need to show an empty notification
             setAssignmentDueSoon(true);
           }
