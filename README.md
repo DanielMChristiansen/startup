@@ -132,6 +132,6 @@ For this deliverable I did the following. I checked the box `[x]` and added a de
 
 - [x] **Backend listens for WebSocket connection** - This part of the deliverable is contained in index.js and notifier.js
 - [x] **Frontend makes WebSocket connection** - Found in Quickview.js, triggers popup when conditions are met.
-- [x] **Data sent over WebSocket connection** - Data is sent to trigger an event on the frontend from notifier.js.
-- [x] **WebSocket data displayed** - Displayed as popup on Quickview page, found in Quickview.js.
+- [x] **Data sent over WebSocket connection** - The backend sends a message containing a list of uncompleted assignments.
+- [x] **WebSocket data displayed** - The list of completed assignments is displayed in the form of a popup.
 - [x] **Application is fully functional** - I did complete this part of the deliverable.
