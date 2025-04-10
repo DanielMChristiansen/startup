@@ -44,6 +44,7 @@ function notifier(httpServer) {
     ws.on("pong", () => {
       connection.alive = true;
     });
+    notifyUser(connection);
   });
 
   // Keep active connections alive
@@ -64,22 +65,25 @@ function notifier(httpServer) {
 }
 
 async function notifyUsers(connections) {
-  const now = new Date();
   for (let connection of connections) {
-    const user = await findUserByToken(connection.id); // Assume `connection.user` contains the user data
-    if (!user) continue;
-    const remainingAssignments = await getUncompletedAssignments(user);
-
-    console.log(
-      `Remaining assignments for user ${user.email}: ${remainingAssignments.length}`
-    );
-    if (remainingAssignments.length === 0) return;
-    const message = {
-      message: "REMAINING_ASSIGNMENTS",
-      remainingAssignments: remainingAssignments,
-    };
-    connection.ws.send(JSON.stringify(message));
+    await notifyUser(connection);
   }
+}
+
+async function notifyUser(connection) {
+  const user = await findUserByToken(connection.id); // Assume `connection.user` contains the user data
+  if (!user) return;
+  const remainingAssignments = await getUncompletedAssignments(user);
+
+  console.log(
+    `Remaining assignments for user ${user.email}: ${remainingAssignments.length}`
+  );
+  if (remainingAssignments.length === 0) return;
+  const message = {
+    message: "REMAINING_ASSIGNMENTS",
+    remainingAssignments: remainingAssignments,
+  };
+  connection.ws.send(JSON.stringify(message));
 }
 
 async function getUncompletedAssignments(user) {
