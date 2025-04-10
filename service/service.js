@@ -5,7 +5,6 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const uuid = require("uuid");
 const DB = require("./database.js");
-const { notifier } = require("./notifier.js");
 
 const app = express();
 const port = process.argv.length > 2 ? process.argv[2] : 3000;

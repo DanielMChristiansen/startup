@@ -1,5 +1,7 @@
 const { WebSocketServer } = require("ws");
 const uuid = require("uuid");
+const DB = require("./database.js");
+const ICAL = require("ical.js");
 
 function notifier(httpServer) {
   const wss = new WebSocketServer({ noServer: true });
@@ -12,14 +14,23 @@ function notifier(httpServer) {
 
   let connections = [];
 
-  wss.on("connection", (ws) => {
+  wss.on("connection", (ws, request) => {
+    const cookies = request.headers.cookie
+      ?.split("; ")
+      .reduce((acc, cookie) => {
+        const [key, value] = cookie.split("=");
+        acc[key] = value;
+        return acc;
+      }, {});
+
+    const token = cookies?.token;
+
     const connection = {
-      id: uuid.v4(),
+      id: token || uuid.v4(),
       alive: true,
       ws: ws,
     };
     connections.push(connection);
-
     // Remove the closed connection so we don't try to forward anymore
     ws.on("close", () => {
       const pos = connections.findIndex((o, i) => o.id === connection.id);
@@ -49,12 +60,105 @@ function notifier(httpServer) {
   }, 10000);
 
   // Check for upcoming assignments
-  setInterval(() => {
-    const now = new Date();
-    for (let connection of connections) {
-      connection.ws.send("Assignment may be due soon");
-    }
-  }, 1000 * 60 * 60);
+  setInterval(async () => notifyUsers(connections), 1000 * 60 * 60);
+}
+
+async function notifyUsers(connections) {
+  const now = new Date();
+  for (let connection of connections) {
+    const user = await findUserByToken(connection.id); // Assume `connection.user` contains the user data
+    if (!user) continue;
+    const remainingAssignments = await getUncompletedAssignments(user);
+
+    console.log(
+      `Remaining assignments for user ${user.email}: ${remainingAssignments.length}`
+    );
+    if (remainingAssignments.length === 0) return;
+    const message = {
+      message: "REMAINING_ASSIGNMENTS",
+      remainingAssignments: remainingAssignments,
+    };
+    connection.ws.send(JSON.stringify(message));
+  }
+}
+
+async function getUncompletedAssignments(user) {
+  let calendars = user.calendars;
+  let assignments = [];
+  for (let i = 0; i < calendars.length; i++) {
+    let calendar = calendars[i];
+    let calendarAssignments = await getAssignments(calendar);
+    assignments.push(...calendarAssignments);
+  }
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+
+  assignments = assignments.filter(
+    (assignment) =>
+      !user.completedAssignments.includes(assignment.id) &&
+      new Date(assignment.dueDate) < new Date()
+  );
+  return assignments;
+}
+
+async function getAssignments(calendar) {
+  const response = await fetch(calendar);
+  const data = await response.text();
+  const jcalData = ICAL.parse(data);
+  const component = new ICAL.Component(jcalData);
+  if (calendar.startsWith("https://learningsuite.byu.edu")) {
+    let assignments = component
+      .getAllSubcomponents("vevent")
+      .map((assignment) => {
+        return {
+          dueDate: assignment
+            .getFirstPropertyValue("dtstart")
+            .toJSDate()
+            .toLocaleDateString(),
+          classTitle: calendar.class,
+          title: assignment.getFirstPropertyValue("summary"),
+          id: assignment.getFirstPropertyValue("uid"),
+        };
+      });
+    // Remove duplicate assignments
+    assignments = assignments.filter(
+      (assignment, index, self) =>
+        index === self.findIndex((a) => a.id === assignment.id)
+    );
+    return assignments;
+  } else {
+    let assignments = component
+      .getAllSubcomponents("vevent")
+      .map((assignment) => {
+        // Take class name from assignment title
+        let assignmentTitle = assignment.getFirstPropertyValue("summary");
+        assignmentTitle = assignmentTitle.split("[");
+        let className = assignmentTitle.pop();
+        // Remove end bracket from class name
+        className = className.replace("]", "");
+        assignmentTitle = assignmentTitle.join(" ");
+        return {
+          dueDate: assignment
+            .getFirstPropertyValue("dtstart")
+            .toJSDate()
+            .toLocaleDateString(),
+          classTitle: className,
+          title: assignmentTitle,
+          id: assignment.getFirstPropertyValue("uid"),
+        };
+      });
+    // Remove duplicate assignments
+    assignments = assignments.filter(
+      (assignment, index, self) =>
+        index === self.findIndex((a) => a.id === assignment.id)
+    );
+    return assignments;
+  }
+}
+
+async function findUserByToken(token) {
+  if (!token) return null;
+  return DB.getUserByToken(token);
 }
 
 module.exports = { notifier };
