@@ -7,7 +7,7 @@ function DueDateNotification ({ assignments, onDismiss }) {
             <button className="dismiss-button" onClick={onDismiss}>
                 &times;
             </button>
-            <h3>{assignments.length} Assignments Due Soon:</h3>
+            <h3>{assignments.length} Assignments Due Today:</h3>
             <ul>
                 {
                     assignments.map(assignment => (

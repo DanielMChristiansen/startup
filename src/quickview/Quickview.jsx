@@ -71,6 +71,7 @@ function Quickview() {
   let [assignments, setAssignments] = React.useState(ASSIGNMENTS);
   let [completedAssignments, setCompletedAssignments] = React.useState([]);
   let [assignmentDueSoon, setAssignmentDueSoon] = React.useState(false);
+  let [upComingAssignments, setUpComingAssignments] = React.useState([]);
   
   React.useEffect(() => {
     fetch('/api/authenticated').then(res => {
@@ -101,14 +102,16 @@ function Quickview() {
     let socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
 
     socket.onmessage = (event) => {
-      const message = event.data;
+      const message = JSON.parse(event.data);
       console.log(`Message received: ${message}`);
-      if (message === 'Assignment may be due soon') {
-        if (9 < (new Date()).getHours() && (new Date()).getHours() < 24) { // Only show the notification if it's before midnight
-          if (ASSIGNMENTS.filter(assignment => isIncompleteAndDueTonight(assignment)).length > 0) { // No need to show an empty notification
-            setAssignmentDueSoon(true);
-          }
+      if (message.message === 'REMAINING_ASSIGNMENTS') {
+        let data = JSON.parse(event.data);
+        let remainingAssignments = data.remainingAssignments;
+        if (remainingAssignments.length > 0) {
+          setAssignmentDueSoon(true);
+          setUpComingAssignments(remainingAssignments);
         }
+        console.log(`Assignments due soon: ${remainingAssignments.length}`);
       }
     };
 
@@ -116,10 +119,6 @@ function Quickview() {
       socket.close();
     };
   }, []);
-
-  function isIncompleteAndDueTonight(assignment) {
-    return !completedAssignments.includes(assignment.id) && new Date(assignment.dueDate).toDateString() === new Date().toDateString();
-  }
 
   return (
     <main id="quickviewPage">
@@ -177,7 +176,7 @@ function Quickview() {
             </tbody>
         </table>
         <br />
-        {assignmentDueSoon && <DueDateNotification assignments={ASSIGNMENTS.filter(element => isIncompleteAndDueTonight(element))} onDismiss={() => {setAssignmentDueSoon(false)}} /> }
+        {assignmentDueSoon && <DueDateNotification assignments={upComingAssignments} onDismiss={() => setAssignmentDueSoon(false)}/> }
     </main>
   )
 }
